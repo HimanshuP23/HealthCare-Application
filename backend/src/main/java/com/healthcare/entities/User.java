@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,19 +27,30 @@ import lombok.ToString;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
+    @Column(name = "name", nullable = false, length = 100)
     private String name;
+
+    @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
+
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
-    private String role;
+
+    @Enumerated(EnumType.STRING)  
+    @Column(name = "role", nullable = false, length = 50)
+    private Role role;
+
+    @Column(name = "phone_number", nullable = false, unique = true, length = 15)
     private String phoneNumber;
 
     @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private Timestamp createdAt;
 
     @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private Timestamp updatedAt;
-
-    // Getters and Setters
 }
