@@ -1,11 +1,20 @@
 package com.healthcare.entities;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Getter;
@@ -14,32 +23,33 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "appointments")
+@Table(name="appointments")
+@NoArgsConstructor
 @Getter
 @Setter
-@NoArgsConstructor
-@ToString
-@AttributeOverride(name = "id",column = @Column(name="appointment_id"))
-public class Appointment extends BaseEntity {
+@ToString(callSuper = true)
 
-	@Column(name = "appointment_date", nullable = false)
-	private LocalDateTime appointmentDate;
-	@Column(name = "status", nullable = false)
-	private AppointmentStatus status;
-	@JoinColumn(name = "patient_id",nullable = false,unique = true)
-	private User patientId;
-	@JoinColumn(name = "doctor_id",nullable = false,unique = true)
-	private Doctor doctorId;
-	
-	@Override
-    @Transient
-    public LocalDateTime getUpdatedAt() {
-        return null;
-    }
+public class Appointment {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long appointmentId;
 
-    @Override
-    @Transient
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-    }
+    private LocalDateTime appointmentDate;
+    private String status;
 
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private User patient;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    private Payment payment;
+
+    // Getters and Setters
 }

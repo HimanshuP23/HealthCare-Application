@@ -1,41 +1,43 @@
 package com.healthcare.entities;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
-import jakarta.persistence.AttributeOverride;
-import jakarta.persistence.Column;
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.persistence.Transient;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "notifications")
+@Table(name = "notification")
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-@AttributeOverride(name = "id", column = @Column(name="notification_id"))
-public class Notification extends BaseEntity  {
-
-	private String message;
-	private NotificationStatus status;
+public class Notification {
 	
-	@JoinColumn(name = "patient_id",nullable = false,unique = true)
-	private User patientId;
-	
-	@Override
-    @Transient
-    public LocalDateTime getUpdatedAt() {
-        return null;
-    }
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long notificationId;
 
-    @Override
-    @Transient
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-    }
+    private String message;
+    private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    // Getters and Setters
 }

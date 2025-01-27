@@ -1,10 +1,18 @@
 package com.healthcare.entities;
 
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,19 +24,23 @@ import lombok.ToString;
 @NoArgsConstructor
 @Getter
 @Setter
-@ToString(callSuper = true,exclude = {"password"})
-@AttributeOverride(name = "id",column = @Column(name="user_id"))
-public class User extends BaseEntity {
-	
-		@Column(length = 100,nullable = false)
-		private String name;
-		@Column(length = 100,unique = true,nullable = false)
-		private String email;
-		@Column(length = 255,nullable = false)
-		private String password;
-		@Enumerated(EnumType.STRING)
-		@Column(nullable = false)
-		private Role role;
-		@Column(name = "phone_number",length = 15,nullable = false)
-		private String phoneNumber;
+@ToString(callSuper = true, exclude = {"password"})
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long userId;
+
+    private String name;
+    private String email;
+    private String password;
+    private String role;
+    private String phoneNumber;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    @UpdateTimestamp
+    private Timestamp updatedAt;
+
+    // Getters and Setters
 }

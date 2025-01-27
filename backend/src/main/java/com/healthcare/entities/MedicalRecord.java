@@ -1,11 +1,18 @@
 package com.healthcare.entities;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Getter;
@@ -19,29 +26,26 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@AttributeOverride(name = "id", column = @Column(name="record_id"))
-public class MedicalRecord extends BaseEntity {
-	
-	@Column(nullable = false)
-	private String diagnosis;
-	@Column(nullable = false)
-	private String treatment;
-	@Column(name = "record_date",nullable = false)
-	private LocalDateTime recordDate;
-	@JoinColumn(name = "patient_id",nullable = false,unique = true)
-	private User patientId;
-	@JoinColumn(name = "doctor_id",nullable = false,unique = true)
-	private Doctor doctorId;
-	
-	@Override
-    @Transient
-    public LocalDateTime getUpdatedAt() {
-        return null;
-    }
 
-    @Override
-    @Transient
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-    }
+public class MedicalRecord {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long recordId;
 
+    private String diagnosis;
+    private String treatment;
+    private LocalDateTime recordDate;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private User patient;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    // Getters and Setters
 }
