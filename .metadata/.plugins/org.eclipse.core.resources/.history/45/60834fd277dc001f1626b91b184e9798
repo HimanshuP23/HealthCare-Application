@@ -1,0 +1,13 @@
+package com.healthcare.entities;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+
+@Entity
+@Table(name = "prescriptions")
+@Getter
+@S
+public class Prescription {
+
+}

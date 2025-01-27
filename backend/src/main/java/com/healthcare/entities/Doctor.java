@@ -1,0 +1,57 @@
+package com.healthcare.entities;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "doctors")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@AttributeOverride(name = "id",column = @Column(name="doctor_id"))
+public class Doctor extends BaseEntity {
+	
+	@JoinColumn(name="user_id",nullable = false,unique = true)
+	private User user;
+	
+	@Column(length = 100,nullable = false)
+	private String specialization;
+	@Column(length = 200,nullable = false)
+	private String qualification;
+	@Column(name = "experience_years",nullable = false)
+	private int experienceYears;
+	@Column(name = "clinic_address",length = 255,nullable = false)
+	private String clinicAddress;
+	@Column(name = "consultation_fee",nullable = false)
+	private double consultationFee;
+	@Column(name = "available_days",length = 100)
+	private String availableDays;
+	@Column(name = "available_time_start")
+	private LocalTime availableTimeStart;
+	@Column(name = "available_time_end")
+	private LocalTime availableTimeEnd;
+	
+	@Override
+    @Transient
+    public LocalDateTime getUpdatedAt() {
+        return null; // Or return a default value if necessary
+    }
+
+    @Override
+    @Transient
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        // Do nothing or log a message
+    }
+}

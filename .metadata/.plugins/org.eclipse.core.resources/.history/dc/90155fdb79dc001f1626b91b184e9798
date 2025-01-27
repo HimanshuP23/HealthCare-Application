@@ -1,0 +1,20 @@
+package com.healthcare.entities;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "notifications")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@AttributeOverride(name = )
+public class Notification extends BaseEntity  {
+
+}

@@ -1,0 +1,28 @@
+package com.healthcare.entities;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.AttributeOverride;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name = "prescriptions")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@AttributeOverride(name = "id",column = @Column(name="prescription_id"))
+public class Prescription extends BaseEntity {
+	
+	private String medicineName;
+	private String dosage;
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private String notes;
+}
