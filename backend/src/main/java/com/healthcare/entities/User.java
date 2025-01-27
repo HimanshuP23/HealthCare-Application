@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -43,7 +45,8 @@ public class User {
     @Column(name = "role", nullable = false, length = 50)
     private Role role;
 
-    @Column(name = "phone_number", nullable = false, unique = true, length = 15)
+    @Column(name = "phone_number", nullable = false, length = 15)
+    @JsonProperty("phone_number")
     private String phoneNumber;
 
     @CreationTimestamp
