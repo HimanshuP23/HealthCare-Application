@@ -1,12 +1,19 @@
 package com.healthcare.entities;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.AttributeOverride;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import lombok.Getter;
@@ -20,32 +27,28 @@ import lombok.ToString;
 @Setter
 @NoArgsConstructor
 @ToString
-@AttributeOverride(name = "id",column = @Column(name="prescription_id"))
-public class Prescription extends BaseEntity {
-	
-	@Column(name = "medicine_name",nullable = false)
-	private String medicineName;
-	@Column(nullable = false)
-	private String dosage;
-	@Column(name = "start_date",nullable = false)
-	private LocalDate startDate;
-	@Column(name = "end_date",nullable = false)
-	private LocalDate endDate;
-	private String notes;
-	
-	@JoinColumn(name = "patient_id",nullable = false,unique = true)
-	private User patientId;
-	@JoinColumn(name = "doctor_id",nullable = false,unique = true)
-	private Doctor doctorId;
-	
-	@Override
-    @Transient
-    public LocalDateTime getUpdatedAt() {
-        return null;
-    }
 
-    @Override
-    @Transient
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-    }
+public class Prescription {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long prescriptionId;
+
+    private String medicineName;
+    private String dosage;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String notes;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private Doctor doctor;
+
+    @ManyToOne
+    @JoinColumn(name = "patient_id")
+    private User patient;
+
+    @CreationTimestamp
+    private Timestamp createdAt;
+
+    // Getters and Setters
 }
