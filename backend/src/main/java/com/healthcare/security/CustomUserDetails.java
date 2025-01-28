@@ -9,40 +9,50 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.healthcare.entities.User;
 
-import io.jsonwebtoken.Claims;
-
-
 public class CustomUserDetails implements UserDetails {
-	private User user;
-	
-	public CustomUserDetails(User entity) {
-		this.user=entity;
-	}
+    private final User user;
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		// TODO Auto-generated method stub
-		return List.of(new SimpleGrantedAuthority(
-				user.getRole().toString()));
-	}
+    public CustomUserDetails(User entity) {
+        this.user = entity;
+    }
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return user.getPassword();
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Mapping the user's role to a GrantedAuthority
+        return List.of(new SimpleGrantedAuthority("ROLE_" + user.getRole().toString()));
+    }
 
-	@Override
-	public String getUsername() {
-		// TODO Auto-generated method stub
-		return user.getEmail();
-	}
+    @Override
+    public String getPassword() {
+        return user.getPassword();
+    }
 
-	public User getUser() {
-		return user;
-	}
-	
+    @Override
+    public String getUsername() {
+        return user.getEmail();
+    }
 
-	
+    public User getUser() {
+        return user;
+    }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
