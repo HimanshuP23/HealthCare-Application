@@ -46,7 +46,7 @@ public class User {
     private Role role;
 
     @Column(name = "phone_number", nullable = false, length = 15)
-    @JsonProperty("phone_number")
+//    @JsonProperty("phone_number")
     private String phoneNumber;
 
     @CreationTimestamp
