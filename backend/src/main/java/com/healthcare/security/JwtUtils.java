@@ -72,7 +72,7 @@ public class JwtUtils {
         Claims payloadClaims = validateJwtToken(jwt);
         String email = getUserNameFromJwtToken(payloadClaims);
         Role role = getRoleFromJwtToken(payloadClaims);
-        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList("ROLE_" + role.toString());
+        List<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(role.toString());
 
         Long userId = Long.valueOf((int) payloadClaims.get("user_id"));
         return new UsernamePasswordAuthenticationToken(email, userId, authorities);

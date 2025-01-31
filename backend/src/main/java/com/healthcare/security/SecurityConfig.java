@@ -41,6 +41,7 @@ public class SecurityConfig {
                 ).permitAll()
                 // Add other matchers or roles here
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .anyRequest().authenticated() // All other requests must be authenticated
             )
             // Replace Basic Auth with custom JWT-based auth
