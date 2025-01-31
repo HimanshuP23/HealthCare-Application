@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+*{
+  /* font-family: "Montserrat", serif; */
+}
+
+.heading{
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.heading-h1{
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 800;
+  font-style: normal;
+  color: rgb(62, 225, 171);
+  margin-top: 2rem;
+}
+
+.sidebar-text{
+  font-family: "Montserrat", serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Custom dropdown styling */
+.role-select-wrapper {
+    position: relative;
+  }
+  
+  .custom-select {
+    padding-right: 30px; /* Add padding to make space for the icon */
+  }
+  
+  .dropdown-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.2rem; /* Adjust the size of the icon */
+    color: #6c757d; /* Color for the icon */
+  }
+  

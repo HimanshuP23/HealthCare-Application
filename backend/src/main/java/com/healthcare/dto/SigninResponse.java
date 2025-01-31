@@ -10,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SigninResponse {
-	private String jwt;
-	private String mesg;
+    private String jwt;
+    private String mesg;
+    private String role; // Add role to the response
 }

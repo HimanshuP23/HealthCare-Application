@@ -19,22 +19,30 @@ export default function SignIn() {
         password,
       });
 
-      const { jwt } = response.data;
+      console.log(response.data);
+      const { jwt, role } = response.data; // Assuming the API response includes the user's role
       localStorage.setItem('token', jwt);
-      alert('Login Successful!');
-      navigate('/dashboard');
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setError(error.response.data.message || 'Authentication failed');
+
+    // Navigate based on the role
+      if (role === 'ADMIN') {
+        navigate('/admin/home'); // Redirect to the admin panel for admin users
+      } else if (role === 'DOCTOR' || role === 'PATIENT') {
+        navigate('/dashboard'); // Modify or create a dashboard route as required
       } else {
-        setError('Invalid Username or Password');
-      }
+        setError('Unknown user role');
     }
+  } catch (error) {
+    if (error.response && error.response.data) {
+      setError(error.response.data.message || 'Authentication failed');
+    } else {
+      setError('Invalid Username or Password');
+    }
+  }
   };
 
   return (
     <div className="vh-100 d-flex flex-column justify-content-center bg-light">
-      <h1 style={{fontSize:'40px',fontFamily: 'cursive'}} className="text-center text-info mb-4 text-decoration-underline">HealthCare Application</h1>
+      <h1 style={{fontSize:'40px',fontFamily: 'cursive'}} className="text-center text-info mb-4 text-decoration-underline">CareBuddy - HealthCare Application</h1>
       
       <div className="d-flex justify-content-center mt-4">
         <div className="card shadow-lg p-4" style={{ maxWidth: '400px', width: '100%' }}>
