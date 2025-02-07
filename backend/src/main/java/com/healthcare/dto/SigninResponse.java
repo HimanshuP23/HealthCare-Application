@@ -13,4 +13,5 @@ public class SigninResponse {
     private String jwt;
     private String mesg;
     private String role; // Add role to the response
+    private Long userId;
 }

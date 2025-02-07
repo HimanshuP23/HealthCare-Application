@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.healthcare.dto.SigninResponse;
 import com.healthcare.entities.User;
+import com.healthcare.repository.UserRepository;
 import com.healthcare.security.JwtUtils;
 import com.healthcare.service.UserService;
 
@@ -38,6 +39,9 @@ public class UserController {
 
 	@Autowired
 	private AuthenticationManager authMgr;
+	
+	@Autowired
+    private UserRepository userRepository;
 
 	// sign up
 	@CrossOrigin(origins = "http://localhost:3000")
@@ -53,9 +57,11 @@ public class UserController {
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@RequestBody @Valid User usr) {
 	    System.out.println("in sign in" + usr);
-
+	    
 	    UsernamePasswordAuthenticationToken token = 
 	        new UsernamePasswordAuthenticationToken(usr.getEmail(), usr.getPassword());
+	    User user = userRepository.findByEmail(usr.getEmail()).orElseThrow();
+	    System.out.println(user);
 	    
 	    Authentication verifiedToken = authMgr.authenticate(token);
 	    String jwt = jwtUtils.generateJwtToken(verifiedToken);
@@ -67,7 +73,7 @@ public class UserController {
 	                  .orElse("UNKNOWN");
 
 	    // Add the role to the response
-	    SigninResponse resp = new SigninResponse(jwt, "Successful Auth!!!!", role);
+	    SigninResponse resp = new SigninResponse(jwt, "Successful Auth!!!!", role, user.getUserId());
 
 	    return ResponseEntity.status(HttpStatus.CREATED).body(resp);
 	}

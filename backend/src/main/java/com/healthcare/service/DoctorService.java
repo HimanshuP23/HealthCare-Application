@@ -1,8 +1,10 @@
 package com.healthcare.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.healthcare.entities.Doctor;
+import com.healthcare.entities.User;
 
 public interface DoctorService {
 	Doctor getDoctorDetails(Long doctorId);
@@ -24,5 +26,7 @@ public interface DoctorService {
 	List<Doctor> getDoctorsByClinicAddress(String clinicAddress);
 	
 	List<Doctor> getDoctorsByAvailableDays(String availableDays);
+
+	
 
 }

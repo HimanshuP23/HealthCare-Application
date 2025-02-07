@@ -1,6 +1,7 @@
 package com.healthcare.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,7 @@ public class UserServiceImpl implements UserService {
 	    public List<User> getUsersByRole(Role role) {
 	        return userRepository.findByRole(role); // Assuming you're using a repository method to find users by role
 	    }
+	    
+	   
 
 }

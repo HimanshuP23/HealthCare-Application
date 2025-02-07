@@ -27,7 +27,7 @@ export default function SignIn() {
       if (role === 'ADMIN') {
         navigate('/admin/home'); // Redirect to the admin panel for admin users
       } else if (role === 'DOCTOR' || role === 'PATIENT') {
-        navigate('/dashboard'); // Modify or create a dashboard route as required
+        navigate('/home'); // Modify or create a dashboard route as required
       } else {
         setError('Unknown user role');
     }
