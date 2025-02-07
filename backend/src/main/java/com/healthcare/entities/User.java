@@ -27,7 +27,12 @@ import lombok.ToString;
 @Setter
 @ToString(callSuper = true, exclude = {"password"})
 public class User {
-    @Id
+    public User(Long patientId) {
+		// TODO Auto-generated constructor stub
+    	this.userId = patientId;
+	}
+
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
     private Long userId;

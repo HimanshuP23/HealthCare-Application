@@ -1,9 +1,14 @@
 package com.healthcare.entities;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -32,18 +37,29 @@ public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "appointment_id")
-    private Long appointmentId;
+    private Long id;
 
     @Column(name = "appointment_date", nullable = false)
-    private LocalDateTime appointmentDate;
+    private LocalDate appointmentDate;
+    
+    @Column(name = "start_time", nullable = false)
+    private LocalDateTime startTime;
 
+    @Column(name = "end_time", nullable = false)
+    private LocalDateTime endTime;
+    
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private AppointmentStatus status;
 
     @ManyToOne
     @JoinColumn(name = "doctor_id", nullable = false)
+//    @JsonIgnore // prevents infinite recursion
     private Doctor doctor;
+    
+    public Long getDoctorId() {
+        return doctor.getDoctorId();
+      }
 
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
@@ -54,5 +70,6 @@ public class Appointment {
     private Timestamp createdAt;
 
     @OneToOne(mappedBy = "appointment", cascade = CascadeType.ALL)
+    
     private Payment payment;
 }

@@ -434,3 +434,4 @@ const AdminDoctorPanel = () => {
 };
 
 export default AdminDoctorPanel;
+  

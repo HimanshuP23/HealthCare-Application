@@ -90,6 +90,13 @@ public class AdminController {
         return ResponseEntity.ok(users);
     }
     
+    
+    
+    
+    //DOCTORS
+    
+    
+    
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/doctor/getalldoctors")
     @PreAuthorize("hasAuthority('DOCTOR') or hasAuthority('ADMIN') or hasAuthority('PATIENT')")
