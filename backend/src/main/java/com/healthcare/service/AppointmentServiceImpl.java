@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -96,7 +97,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
 	@Override
-	public boolean isSlotAvailable(Long doctorId, LocalDateTime startTime, LocalDateTime endTime) {
+	public boolean isSlotAvailable(Long doctorId, LocalTime startTime, LocalTime endTime) {
 		return !appointmentRepository.existsByDoctorIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
 		          doctorId,
 		          endTime,

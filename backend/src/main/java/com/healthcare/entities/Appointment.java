@@ -3,6 +3,7 @@ package com.healthcare.entities;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -43,10 +44,10 @@ public class Appointment {
     private LocalDate appointmentDate;
     
     @Column(name = "start_time", nullable = false)
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
     @Column(name = "end_time", nullable = false)
-    private LocalDateTime endTime;
+    private LocalTime endTime;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)

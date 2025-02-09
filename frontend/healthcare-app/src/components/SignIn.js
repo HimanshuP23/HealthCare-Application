@@ -19,9 +19,18 @@ export default function SignIn() {
         password,
       });
 
+      
       console.log(response.data);
-      const { jwt, role } = response.data; // Assuming the API response includes the user's role
+      const { jwt, role ,userId} = response.data; // Assuming the API response includes the user's role
+      if (role === "DOCTOR" && response.data.doctorDetails) {
+        const { doctorDetails } = response.data;
+        localStorage.setItem('doctorid', doctorDetails.doctorId)
+        // Execute the required code here
+    }
+    
       localStorage.setItem('token', jwt);
+      localStorage.setItem('user', userId)
+      
 
     // Navigate based on the role
       if (role === 'ADMIN') {

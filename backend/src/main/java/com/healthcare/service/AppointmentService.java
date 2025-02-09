@@ -3,6 +3,7 @@ package com.healthcare.service;
 import com.healthcare.entities.Appointment;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 public interface AppointmentService {
@@ -15,5 +16,5 @@ public interface AppointmentService {
     List<Appointment> getAppointmentsByDoctor(Long doctorId);
     List<Appointment> getUserAppointmentHistory(Long userId);
     List<Appointment> getDoctorDashboard(Long doctorId);
-	boolean isSlotAvailable(Long doctorId, LocalDateTime startTime, LocalDateTime endTime);
+	boolean isSlotAvailable(Long doctorId, LocalTime startTime, LocalTime endTime);
 }
