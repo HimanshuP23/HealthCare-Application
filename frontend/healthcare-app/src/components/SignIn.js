@@ -21,6 +21,7 @@ export default function SignIn() {
 
       
       console.log(response.data);
+<<<<<<< Updated upstream
       const { jwt, role ,userId} = response.data; // Assuming the API response includes the user's role
       if (role === "DOCTOR" && response.data.doctorDetails) {
         const { doctorDetails } = response.data;
@@ -31,28 +32,40 @@ export default function SignIn() {
       localStorage.setItem('token', jwt);
       localStorage.setItem('user', userId)
       
+=======
+      const { jwt, role } = response.data; // Assumes the API response includes the user's role
+      
+      // Store both the token and role
+      localStorage.setItem('token', jwt);
+      localStorage.setItem('role', role);
+>>>>>>> Stashed changes
 
-    // Navigate based on the role
+      // Navigate based on the role
       if (role === 'ADMIN') {
-        navigate('/admin/home'); // Redirect to the admin panel for admin users
+        navigate('/'); // Redirect admin users
       } else if (role === 'DOCTOR' || role === 'PATIENT') {
-        navigate('/home'); // Modify or create a dashboard route as required
+        navigate('/'); // Redirect doctor or patient users (adjust as needed)
       } else {
         setError('Unknown user role');
+      }
+    } catch (error) {
+      if (error.response && error.response.data) {
+        setError(error.response.data.message || 'Authentication failed');
+      } else {
+        setError('Invalid Username or Password');
+      }
     }
-  } catch (error) {
-    if (error.response && error.response.data) {
-      setError(error.response.data.message || 'Authentication failed');
-    } else {
-      setError('Invalid Username or Password');
-    }
-  }
   };
 
   return (
     <div className="vh-100 d-flex flex-column justify-content-center bg-light">
-      <h1 style={{fontSize:'40px',fontFamily: 'cursive'}} className="text-center text-info mb-4 text-decoration-underline">CareBuddy - HealthCare Application</h1>
-      
+      <h1
+        style={{ fontSize: '40px', fontFamily: 'cursive' }}
+        className="text-center text-info mb-4 text-decoration-underline"
+      >
+        CareBuddy - HealthCare Application
+      </h1>
+
       <div className="d-flex justify-content-center mt-4">
         <div className="card shadow-lg p-4" style={{ maxWidth: '400px', width: '100%' }}>
           <h2 className="text-center text-primary mb-4">Login</h2>
@@ -94,7 +107,7 @@ export default function SignIn() {
           </form>
           <p className="mt-3 text-center">
             Don&apos;t have an account?{' '}
-            <a href="/" className="text-primary text-decoration-none">
+            <a href="/signup" className="text-primary text-decoration-none">
               Sign up here
             </a>
           </p>

@@ -1,0 +1,74 @@
+/* Background styling for the entire Find Doctor page */
+  .finddoctor-bg {
+    background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+    padding: 20px;
+  }
+
+  .full-page-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+    z-index: -1; /* Places it behind other elements */
+  }  
+  
+  /* Modern card styling */
+  .doctor-card {
+    border-radius: 16px; /* Increased border radius for a softer look */
+    border: none; /* Remove default border */
+    background-color: #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Hover effect to lift the card slightly with a deeper shadow */
+  .doctor-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Enhance the doctor image appearance */
+  .doctor-img {
+    /* The inline style sets width and height (250px), so these remain as-is. */
+    border: 4px solid #ffffff;  /* White border for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 50%; /* Ensures the image remains perfectly circular */
+    transition: transform 0.3s ease;
+  }
+  
+  /* Optional: add a slight zoom on hover for the image */
+  .doctor-img:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Modernize the doctor name styling */
+  .doctor-name {
+    color: #007bff;
+    font-weight: bold;
+    font-size: 1.25rem; /* Larger font size for better readability */
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Experience and rating text styling */
+  .experience,
+  .rating {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  /* You can also add some spacing between the card content */
+  .doctor-card p {
+    margin-bottom: 0.5rem;
+  }
+  
+  /* Optional: style the component title to be more modern */
+  .component-title {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 700;
+    font-size: 2rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  

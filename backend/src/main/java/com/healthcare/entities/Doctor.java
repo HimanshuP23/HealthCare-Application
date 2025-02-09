@@ -61,6 +61,10 @@ public class Doctor {
 
     @Column(name = "available_time_end", nullable = false)
     private LocalTime availableTimeEnd;
+    
+    // New field for storing image URL
+    @Column(name = "image_url", length = 255)
+    private String imageUrl;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)

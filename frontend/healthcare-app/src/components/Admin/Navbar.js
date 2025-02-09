@@ -10,6 +10,10 @@ const Navbar = () => {
     navigate("/signin"); // Redirect to sign-in page
   };
 
+  const toHome = () => {
+    navigate("/");
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light"> {/* Light theme */}
       <div className="container-fluid">
@@ -29,9 +33,17 @@ const Navbar = () => {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
+              <button 
+                className="nav-link btn btn-outline-primary fw-semibold"
+                style={{marginRight: '20px'}} 
+                onClick={toHome}
+              >
+                Home
+              </button>
             <li className="nav-item">
               <button 
                 className="nav-link btn btn-outline-primary fw-semibold" 
+                style={{marginRight: '20px'}}
                 onClick={handleLogout}
               >
                 Logout

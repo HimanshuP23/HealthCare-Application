@@ -54,6 +54,7 @@ function RegisterPage() {
               <option value="">Select Role</option>
               <option value="DOCTOR">Doctor</option>
               <option value="PATIENT">Patient</option>
+              {/* <option value="ADMIN">Admin</option> */}
             </select>
           </div>
           {error && <div className="alert alert-danger">{error}</div>}

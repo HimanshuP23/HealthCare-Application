@@ -1,0 +1,94 @@
+/* Fonts (optional) */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Component-Title */
+.component-title{
+    font-family: "Montserrat", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-optical-sizing: auto;
+}
+
+/* Header */
+.modern-header {
+  background: linear-gradient(90deg, #ffffff, #f8f9fa);
+  font-family: 'Roboto', sans-serif;
+  transition: all 0.3s ease;
+}
+.modern-header .navbar-brand {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.modern-header .nav-link {
+  margin-left: 1rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+.modern-header .nav-link:hover {
+  color: #007bff;
+}
+
+/* Hero Section */
+.modern-hero {
+  background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+  /* border-radius: 0 0 2rem 2rem; */
+}
+.modern-hero h1 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  color: #333;
+}
+.modern-hero p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Consultation & Specialist Cards */
+.gradient-background{
+    background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+}
+
+.modern-consultation,
+.modern-specialist {
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+}
+.modern-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.modern-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Testimonials */
+.modern-testimonials {
+  font-family: 'Roboto', sans-serif;
+  color: #444;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+.modern-carousel-item {
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Footer */
+.modern-footer {
+  /* background: linear-gradient(135deg, #343a40, #212529); */
+  background: #578FCA;
+  font-family: 'Roboto', sans-serif;
+  transition: background 0.3s ease;
+}
+.modern-footer h5 {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+.modern-footer .nav-link {
+  transition: color 0.3s ease;
+}
+.modern-footer .nav-link:hover {
+  color: #ffc107;
+}
