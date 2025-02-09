@@ -21,7 +21,6 @@ export default function SignIn() {
 
       
       console.log(response.data);
-<<<<<<< Updated upstream
       const { jwt, role ,userId} = response.data; // Assuming the API response includes the user's role
       if (role === "DOCTOR" && response.data.doctorDetails) {
         const { doctorDetails } = response.data;
@@ -31,14 +30,8 @@ export default function SignIn() {
     
       localStorage.setItem('token', jwt);
       localStorage.setItem('user', userId)
-      
-=======
-      const { jwt, role } = response.data; // Assumes the API response includes the user's role
-      
-      // Store both the token and role
-      localStorage.setItem('token', jwt);
       localStorage.setItem('role', role);
->>>>>>> Stashed changes
+      
 
       // Navigate based on the role
       if (role === 'ADMIN') {

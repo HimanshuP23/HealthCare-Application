@@ -10,6 +10,9 @@ const FindDoctors = () => {
   // Store all fetched doctors and the currently displayed (filtered) doctors.
   const [allDoctors, setAllDoctors] = useState([]);
   const [doctors, setDoctors] = useState([]);
+
+  // Add state to track which doctor's phone number is visible
+  const [showPhoneNumberFor, setShowPhoneNumberFor] = useState(null);
   
   // State for search query and selected filter.
   const [searchQuery, setSearchQuery] = useState("");
@@ -24,7 +27,7 @@ const FindDoctors = () => {
         // Get the JWT token from localStorage.
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:8080/admin/doctor/getalldoctors",
+          "http://localhost:8080/doctors/getalldoctors",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -79,6 +82,11 @@ const FindDoctors = () => {
     navigate("/book-appointment");
   };
 
+  // Toggle phone number visibility
+  const handleContactClick = (doctorId) => {
+    setShowPhoneNumberFor(prev => prev === doctorId ? null : doctorId);
+  };
+
   return (
     <div>
       <Header />
@@ -96,9 +104,7 @@ const FindDoctors = () => {
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
             >
-              <option value="">
-                Filter By (default: Doctor Name)
-              </option>
+              <option value="">Filter By (default: Doctor Name)</option>
               <option value="specialization">Specialization</option>
               <option value="qualification">Qualification</option>
               <option value="experienceYears">Experience (Years)</option>
@@ -146,7 +152,8 @@ const FindDoctors = () => {
                     <strong>Specialization:</strong> {doctor.specialization}
                   </p>
                   <p className="mb-1">
-                    <strong>Experience:</strong> {doctor.experienceYears} years overall
+                    <strong>Experience:</strong> {doctor.experienceYears} years
+                    overall
                   </p>
                   <p className="mb-1">
                     <strong>Clinic Address:</strong> {doctor.clinicAddress}
@@ -155,7 +162,8 @@ const FindDoctors = () => {
                     <strong>Consultation Fee:</strong> ₹{doctor.consultationFee}
                   </p>
                   <p className="mb-1">
-                    <strong>Patient Stories:</strong> {doctor.patientStories || "50"}
+                    <strong>Patient Stories:</strong>{" "}
+                    {doctor.patientStories || "50"}
                   </p>
                   <p className="mb-1">
                     <strong>Rating:</strong>{" "}
@@ -176,9 +184,37 @@ const FindDoctors = () => {
                     Book Appointment <br />
                     {/* <small>No Booking Fee</small> */}
                   </Button>
-                  <Button variant="outline-secondary" className="w-100">
-                    📞 Contact Clinic
-                  </Button>
+                  {showPhoneNumberFor === doctor.doctorId ? (
+                    <div className="phone-number-display">
+                      <div className="phone-number mb-2">
+                        <strong>📞 {doctor.user?.phoneNumber}</strong>
+                      </div>
+                      <small className="terms-text">
+                        You can contact doctor at this number
+                      </small>
+                      {!doctor.user?.phoneNumber && (
+                        <small className="text-danger">
+                          Phone number not available
+                        </small>
+                      )}
+                      <Button
+                        variant="outline-danger"
+                        className="w-100 mt-2"
+                        onClick={() => handleContactClick(doctor.doctorId)}
+                      >
+                        Hide Number
+                      </Button>
+                    </div>
+                  ) : (
+                    <Button
+                      variant="outline-secondary"
+                      className="w-100"
+                      onClick={() => handleContactClick(doctor.doctorId)}
+                      disabled={!doctor.user?.phoneNumber}
+                    >
+                      📞 Contact Clinic
+                    </Button>
+                  )}
                 </Col>
               </Row>
             </Card>
