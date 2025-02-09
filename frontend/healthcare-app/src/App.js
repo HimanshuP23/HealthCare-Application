@@ -15,6 +15,8 @@ import FindDoctors from './components/Home/FindDoctors';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import PaymentWrapper from './components/Payment/PaymentWrapper';
+
 const theme = createTheme({
     palette: {
         primary: {
@@ -49,6 +51,9 @@ const App = () => {
         {/* Home Page */}
         <Route path="/" element={<HomePage></HomePage>}></Route>
         <Route path="/find-doctors" element={<FindDoctors></FindDoctors>}></Route>
+        
+        <Route path='/payment' element={<PaymentWrapper></PaymentWrapper>}></Route>
+
         
       </Routes>
     </div>

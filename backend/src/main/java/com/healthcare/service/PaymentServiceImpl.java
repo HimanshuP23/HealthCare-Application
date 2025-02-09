@@ -2,7 +2,9 @@ package com.healthcare.service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -18,17 +20,49 @@ import com.healthcare.exceptions.EntityNotFoundException;
 import com.healthcare.repository.AppointmentRepository;
 import com.healthcare.repository.PaymentRepository;
 
-
+// Stripe imports
+import com.stripe.Stripe;
+import com.stripe.exception.StripeException;
+import com.stripe.model.PaymentIntent;
+import com.stripe.param.PaymentIntentCreateParams;
 
 @Service
 @Transactional
 public class PaymentServiceImpl implements PaymentService {
 
-	@Autowired
+    @Autowired
     private PaymentRepository paymentRepository;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
+
+    // Update this method to create a PaymentIntent via Stripe.
+    @Override
+    public Map<String, String> createPaymentIntent(Double amount, Long appointmentId) {
+        // Validate that the appointment exists (if needed)
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new EntityNotFoundException("Appointment not found"));
+
+        // Set your Stripe secret key (in production, do not hardcode; use a secure configuration)
+        Stripe.apiKey = "sk_test_51QqXLHPQnnkSg4rUb9tdkL7uMz70vdX5ylddLhK81bRJFutCGvexHgl5wg5CEQmkxuSeAPw11VNTlbRV9aKXDhfh00ZrLNHZiT"; // Replace with your actual secret key
+
+        // Convert the amount to the smallest currency unit (e.g., cents) if needed.
+        long amountInCents = (long) (amount * 100);
+
+        PaymentIntentCreateParams params = PaymentIntentCreateParams.builder()
+                .setAmount(amountInCents)
+                .setCurrency("usd")
+                .build();
+
+        try {
+            PaymentIntent intent = PaymentIntent.create(params);
+            Map<String, String> responseData = new HashMap<>();
+            responseData.put("clientSecret", intent.getClientSecret());
+            return responseData;
+        } catch (StripeException e) {
+            throw new RuntimeException("Stripe API error: " + e.getMessage());
+        }
+    }
 
     @Override
     public PaymentResponseDTO addPayment(PaymentRequestDTO paymentRequestDTO) {
@@ -50,11 +84,11 @@ public class PaymentServiceImpl implements PaymentService {
         return mapToDTO(payment);
     }
     
- // Method to generate a unique transaction ID
+    // Method to generate a unique transaction ID
     private String generateTransactionId() {
         LocalDateTime now = LocalDateTime.now();
         String formattedDate = now.format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss")); // Format: YYYYMMDDHHMMSS
-        String uniqueId = UUID.randomUUID().toString().substring(0, 8); // Get first 8 chars of UUID
+        String uniqueId = UUID.randomUUID().toString().substring(0, 8); // First 8 characters of UUID
         return formattedDate + "-" + uniqueId;
     }
 
