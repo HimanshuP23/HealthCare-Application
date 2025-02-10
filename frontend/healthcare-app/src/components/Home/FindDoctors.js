@@ -79,7 +79,7 @@ const FindDoctors = () => {
   }, [searchQuery, filterType, allDoctors]);
 
   const handleBookAppointment = (doctorId) => {
-    navigate("/book-appointment");
+    navigate("/book-appointment", {state:{doctorId}});
   };
 
   // Toggle phone number visibility
