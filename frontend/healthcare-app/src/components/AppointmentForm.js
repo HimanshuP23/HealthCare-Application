@@ -11,15 +11,19 @@ import {
     InputAdornment,
   } from "@mui/material";
   import { CalendarToday, Schedule, Person } from "@mui/icons-material";
+import { useLocation } from 'react-router-dom';
 
 const AppointmentForm = ({ userId }) => {
     console.log(userId)
+    const location = useLocation();
     const [appointment, setAppointment] = useState({
-        doctorId: '',
+
+        doctorId: location.state?.doctorId,
         startTime: '',
         endTime: '',
         appointmentDate: ''
     });
+    
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -33,50 +37,7 @@ const AppointmentForm = ({ userId }) => {
     };
 
     return (
-        // <Container>
-        //     <Typography variant="h4">Book Appointment</Typography>
-        //     <form onSubmit={handleSubmit}>
-        //         <TextField
-        //             label="Doctor ID"
-        //             value={appointment.doctorId}
-        //             onChange={(e) => setAppointment({ ...appointment, doctorId: e.target.value })}
-        //             fullWidth
-        //             margin="normal"
-        //         />
-        //         <TextField
-        //             label="Start Time"
-        //             type="time"
-        //             value={appointment.startTime}
-        //             onChange={(e) => setAppointment({ ...appointment, startTime: e.target.value })}
-        //             fullWidth
-        //             margin="normal"
-        //             InputLabelProps={{ shrink: true }}
-        //         />
-        //         <TextField
-        //             label="End Time"
-        //             type="time"
-        //             value={appointment.endTime}
-        //             onChange={(e) => setAppointment({ ...appointment, endTime: e.target.value })}
-        //             fullWidth
-        //             margin="normal"
-        //             InputLabelProps={{ shrink: true }}
-        //         />
-        //         <TextField
-        //             label="Appointment Date"
-        //             type="date"
-        //             value={appointment.appointmentDate}
-        //             onChange={(e) => setAppointment({ ...appointment, appointmentDate: e.target.value })}
-        //             fullWidth
-        //             margin="normal"
-        //             InputLabelProps={{ shrink: true }}
-        //         />
-        //         <Button type="submit" variant="contained" color="primary">
-        //             Book Appointment
-        //         </Button>
-        //     </form>
-        // </Container>
-
-        <Container maxWidth="sm" sx={{ mt: 5 }}>
+    <Container maxWidth="sm" sx={{ mt: 5 }}>
       <Card elevation={4} sx={{ p: 3, borderRadius: 2 }}>
         <CardContent>
           <Typography
@@ -101,6 +62,7 @@ const AppointmentForm = ({ userId }) => {
                   required
                   margin="normal"
                   InputProps={{
+                    readOnly: true,
                     startAdornment: (
                       <InputAdornment position="start">
                         <Person />

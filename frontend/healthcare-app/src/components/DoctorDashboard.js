@@ -3,11 +3,12 @@ import { getAppointmentsByDoctor, updateAppointmentStatus } from '../services/ap
 import AppointmentList from './AppointmentList';
 import { Button, Container, Typography } from '@mui/material';
 import {  Grid, Card, CardContent, Paper, Box } from '@mui/material';
+import { motion } from 'framer-motion';
 
 
 const DoctorDashboard = ({ doctorId }) => {
     const [appointments, setAppointments] = useState([]);
-
+    console.log(appointments)
     useEffect(() => {
         const fetchAppointments = async () => {
             const response = await getAppointmentsByDoctor(doctorId);
@@ -108,21 +109,34 @@ const DoctorDashboard = ({ doctorId }) => {
 
 
 <Container sx={{ marginTop: 4 }}>
-    <Typography variant="h4" sx={{ marginBottom: 3, fontWeight: 'bold' }}>Doctor Dashboard</Typography>
+    <Typography variant="h4" sx={{ marginBottom: 3, fontWeight: 'bold', textAlign: 'center', color: '#1976D2' }}>
+        Doctor Dashboard
+    </Typography>
     
-    <Paper sx={{ padding: 3, boxShadow: 3 }}>
-        <AppointmentList appointments={appointments} />
-    </Paper>
+    {/* Remove the Table Component */}
     
     <Grid container spacing={3} sx={{ marginTop: 3 }}>
         {appointments.map((appointment) => (
             <Grid item xs={12} sm={6} md={4} key={appointment.id}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', padding: 2, boxShadow: 3 }}>
+                <Card 
+                    sx={{ 
+                        display: 'flex', 
+                        flexDirection: 'column', 
+                        justifyContent: 'space-between', 
+                        padding: 2, 
+                        boxShadow: 3,
+                        backgroundColor: appointment.status === 'CANCELLED' ? '#ffebee' : '#e3f2fd' 
+                    }}
+                >
                     <CardContent>
-                        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>Appointment ID: {appointment.id}</Typography>
-                        <Typography variant="body2" color="text.secondary">Patient: {appointment.patientName}</Typography>
-                        <Typography variant="body2" color="text.secondary">Date: {appointment.date}</Typography>
-                        <Typography variant="body2" color="text.secondary">Status: <strong>{appointment.status}</strong></Typography>
+                        <Typography variant="h6" sx={{ fontWeight: 'bold', marginBottom: 1 }}>
+                            Appointment ID: {appointment.id}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary">Patient Name: {appointment.patient.name}</Typography>
+                        <Typography variant="body2" color="text.secondary">Appointment Date: {appointment.appointmentDate}</Typography>
+                        <Typography variant="body2" color={appointment.status === 'CANCELLED' ? 'error' : 'success'}>
+                            Status: <strong>{appointment.status}</strong>
+                        </Typography>
                     </CardContent>
                     <Box sx={{ padding: 2 }}>
                         <Grid container spacing={2}>
@@ -155,6 +169,7 @@ const DoctorDashboard = ({ doctorId }) => {
         ))}
     </Grid>
 </Container>
+
 
     );
 };

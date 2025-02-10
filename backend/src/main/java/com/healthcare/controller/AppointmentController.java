@@ -96,7 +96,9 @@ public class AppointmentController {
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<Appointment>> getAppointmentsByDoctor(@PathVariable Long doctorId) {
-        return ResponseEntity.ok(appointmentService.getAppointmentsByDoctor(doctorId));
+    	System.out.println(doctorId);
+    	return ResponseEntity.ok(appointmentService.getAppointmentsByDoctor(doctorId));
+       
     }
 
     

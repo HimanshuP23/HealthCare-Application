@@ -1,7 +1,7 @@
 import './App.css';
 import {Routes,Route} from 'react-router-dom'
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
+import SignIn from './components/Home/SignIn';
+import SignUp from './components/Home/SignUp';
 import AdminUserPanel from './components/Admin/AdminUserPanel';
 import AdminHomePanel from './components/Admin/AdminHomePanel';
 import AdminDoctorPanel from './components/Admin/AdminDoctorPanel';

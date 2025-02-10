@@ -46,7 +46,7 @@ public class UserController {
 	// sign up
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/signup")
-	public ResponseEntity<?> userSignup(@RequestBody @Valid User u) {
+	public ResponseEntity<?> userSignup(@Valid @RequestBody  User u) {
 		System.out.println("in sign up " + u);
 		return ResponseEntity
 				.status(HttpStatus.CREATED)
@@ -55,7 +55,7 @@ public class UserController {
 
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@RequestBody @Valid User usr) {
+	public ResponseEntity<?> authenticateUser(@Valid @RequestBody User usr) {
 	    System.out.println("in sign in" + usr);
 	    
 	    UsernamePasswordAuthenticationToken token = 
