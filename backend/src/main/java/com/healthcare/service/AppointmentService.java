@@ -1,10 +1,10 @@
 package com.healthcare.service;
 
-import com.healthcare.entities.Appointment;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import com.healthcare.entities.Appointment;
 
 public interface AppointmentService {
     boolean isSlotAvailable(Appointment appointment);
@@ -16,5 +16,9 @@ public interface AppointmentService {
     List<Appointment> getAppointmentsByDoctor(Long doctorId);
     List<Appointment> getUserAppointmentHistory(Long userId);
     List<Appointment> getDoctorDashboard(Long doctorId);
-	boolean isSlotAvailable(Long doctorId, LocalTime startTime, LocalTime endTime);
+ // Overloaded method to check slot availability using individual fields
+    boolean isSlotAvailable(Long doctorId, 
+                            java.time.LocalDate appointmentDate, 
+                            LocalTime startTime, 
+                            LocalTime endTime);
 }

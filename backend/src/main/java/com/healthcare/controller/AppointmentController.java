@@ -27,37 +27,9 @@ public class AppointmentController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PreAuthorize("hasRole('PATIENT')")
     @PostMapping("/addAppointment")
-//    public ResponseEntity<?> bookAppointment(@RequestBody Appointment appointment) {
-//        try {
-//            if (appointmentService.isSlotAvailable(appointment)) {
-//                return ResponseEntity.ok(appointmentService.bookAppointment(appointment));
-//            }
-//            return ResponseEntity.badRequest().body("Slot is unavailable");
-//        } catch (RuntimeException e) {
-//            return ResponseEntity.badRequest().body(e.getMessage());
-//        }
-//    }
-    
-    //running code without dto
-//    public ResponseEntity<?> bookAppointment(@RequestBody Appointment appointment) {
-//    	  try {
-//    	    Doctor doctor = new Doctor();
-//    	    doctor.setDoctorId(1L); // Replace with the actual doctor ID
-//    	    appointment.setDoctor(doctor);
-//    	   
-//    	    if (appointmentService.isSlotAvailable(appointment.getDoctor().getDoctorId(), appointment.getStartTime(), appointment.getEndTime())) {
-//    	      return ResponseEntity.ok(appointmentService.bookAppointment(appointment));
-//    	    }
-//    	    return ResponseEntity.badRequest().body("Slot is unavailable");
-//    	  } catch (RuntimeException e) {
-//    	    return ResponseEntity.badRequest().body(e.getMessage());
-//    	  }
-//    	}
-    
-    //with dto
     public ResponseEntity<?> bookAppointment(@RequestBody AppointmentDto appointmentDto) {
         try {
-        	System.out.println(appointmentDto.getAppointmentDate());
+            System.out.println("Appointment Date: " + appointmentDto.getAppointmentDate());
             Appointment appointment = new Appointment();
             appointment.setAppointmentDate(appointmentDto.getAppointmentDate());
             appointment.setStartTime(appointmentDto.getStartTime());
@@ -69,7 +41,12 @@ public class AppointmentController {
             doctor.setDoctorId(appointmentDto.getDoctorId());
             appointment.setDoctor(doctor);
             
-            if (appointmentService.isSlotAvailable(appointmentDto.getDoctorId(), appointmentDto.getStartTime(), appointmentDto.getEndTime())) {
+            // Use the updated slot check (including appointmentDate)
+            if (appointmentService.isSlotAvailable(
+                    appointmentDto.getDoctorId(),
+                    appointmentDto.getAppointmentDate(),
+                    appointmentDto.getStartTime(),
+                    appointmentDto.getEndTime())) {
                 return ResponseEntity.ok(appointmentService.bookAppointment(appointment));
             }
             return ResponseEntity.badRequest().body("Slot is unavailable");

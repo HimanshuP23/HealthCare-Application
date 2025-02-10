@@ -24,7 +24,7 @@ const ConsultationSection = () => {
               />
               <Card.Body className="text-center">
                 <Card.Title>{item.title}</Card.Title>
-                <Button variant="success">Consult Now</Button>
+                <Button variant="success" href="/find-doctors">Consult Now</Button>
               </Card.Body>
             </Card>
           </Col>

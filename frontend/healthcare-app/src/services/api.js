@@ -14,8 +14,8 @@ const getAuthHeaders = () => {
 };
 
 export const bookAppointment = (appointment) => {
-    console.log(appointment);
-    console.log(localStorage.getItem('token'));
+    // console.log(appointment);
+    // console.log(localStorage.getItem('token'));
     return axios.post(`${API_URL}/addAppointment`, appointment, getAuthHeaders());
 };
 

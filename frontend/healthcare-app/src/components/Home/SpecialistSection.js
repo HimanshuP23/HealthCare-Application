@@ -25,7 +25,7 @@ const SpecialistSection = () => {
               />
               <Card.Body>
                 <Card.Title>{item.title}</Card.Title>
-                <Button variant="primary">Explore</Button>
+                <Button variant="primary" href="/find-doctors">Explore</Button>
               </Card.Body>
             </Card>
           </Col>

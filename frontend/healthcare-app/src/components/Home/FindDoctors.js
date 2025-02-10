@@ -78,8 +78,21 @@ const FindDoctors = () => {
     }
   }, [searchQuery, filterType, allDoctors]);
 
+<<<<<<< Updated upstream
   const handleBookAppointment = (doctorId) => {
     navigate("/book-appointment", {state:{doctorId}});
+=======
+  const handleBookAppointment = (doctor) => {
+    // Pass the doctor details as state when navigating
+    navigate("/book-appointment", { 
+      state: { 
+          doctorId: String(doctor.doctorId), 
+          doctorName: doctor.doctorname, 
+          specialization: doctor.specialization,
+          consultationFee: doctor.consultationFee
+      } 
+    });
+>>>>>>> Stashed changes
   };
 
   // Toggle phone number visibility
@@ -179,7 +192,7 @@ const FindDoctors = () => {
                   <Button
                     variant="primary"
                     className="mb-2 w-100"
-                    onClick={() => handleBookAppointment(doctor.doctorId)}
+                    onClick={() => handleBookAppointment(doctor)}
                   >
                     Book Appointment <br />
                     {/* <small>No Booking Fee</small> */}

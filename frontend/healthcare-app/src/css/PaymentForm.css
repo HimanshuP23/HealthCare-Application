@@ -1,0 +1,29 @@
+/* PaymentForm.css */
+.payment-form-container {
+    min-height: 100vh;
+    background: #f8f9fa; /* Light grey background for a clean look */
+    padding: 20px;
+  }
+  
+  .payment-form-card {
+    max-width: 450px;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
+    background: #ffffff; /* White card for a minimalist style */
+  }
+  
+  .card-header {
+    background: #ffffff;
+    border-bottom: 2px solid #dee2e6;
+    margin-bottom: 20px;
+  }
+  
+  .card-header h2 {
+    color: #343a40; /* Dark grey for the header text */
+  }
+  
+  .card-element-wrapper {
+    background-color: #f1f3f5;
+  }
+  

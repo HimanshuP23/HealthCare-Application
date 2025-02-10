@@ -1,17 +1,17 @@
 package com.healthcare.service;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.healthcare.entities.Appointment;
 import com.healthcare.entities.AppointmentStatus;
 import com.healthcare.repository.AppointmentRepository;
 
 import jakarta.transaction.Transactional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -32,8 +32,9 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (appointment.getDoctor() == null) {
             throw new RuntimeException("Doctor object is not set in the Appointment object");
         }
-        return !appointmentRepository.existsByDoctorIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+        return !appointmentRepository.existsByDoctor_DoctorIdAndAppointmentDateAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
                 appointment.getDoctor().getDoctorId(),
+                appointment.getAppointmentDate(),
                 appointment.getEndTime(),
                 appointment.getStartTime());
     }
@@ -96,11 +97,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentRepository.findByDoctor_DoctorId(doctorId);
     }
 
-	@Override
-	public boolean isSlotAvailable(Long doctorId, LocalTime startTime, LocalTime endTime) {
-		return !appointmentRepository.existsByDoctorIdAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
-		          doctorId,
-		          endTime,
-		          startTime);
-	}
+    @Override
+    public boolean isSlotAvailable(Long doctorId, LocalDate appointmentDate, LocalTime startTime, LocalTime endTime) {
+        return !appointmentRepository.existsByDoctor_DoctorIdAndAppointmentDateAndStartTimeLessThanEqualAndEndTimeGreaterThanEqual(
+                doctorId,
+                appointmentDate,
+                endTime,
+                startTime);
+    }
 }
