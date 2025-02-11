@@ -35,7 +35,7 @@ const PatientHistory = ({ userId, userDetails }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const userData = JSON.parse(localStorage.getItem("userdata"));
+  const userData = JSON.parse(localStorage.getItem("userobj"));
 
   useEffect(() => {
     const fetchAppointments = async () => {
@@ -94,14 +94,7 @@ const PatientHistory = ({ userId, userDetails }) => {
                 )}
               </Grid>
               <Grid item>
-                <Typography
-                  variant="h4"
-                  color="primary"
-                  sx={{ fontWeight: "bold" }}
-                >
-                  Appointment History
-                </Typography>
-                <Button
+              <Button
                   variant="contained"
                   color="primary"
                   
@@ -109,6 +102,13 @@ const PatientHistory = ({ userId, userDetails }) => {
                 >
                   Show User Info
                 </Button>
+                <Typography
+                  variant="h4"
+                  color="primary"
+                  sx={{ fontWeight: "bold", marginTop: '2rem' }}
+                >
+                  Appointment History
+                </Typography>
               </Grid>
             </Grid>
             <Grid container spacing={3} sx={{ mt: 4 }}>
@@ -128,13 +128,13 @@ const PatientHistory = ({ userId, userDetails }) => {
                         <Typography variant="h6" color="primary">
                           {appt.appointmentDate}
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant="body1" style={{fontWeight:'bold'}}>
                           Doctor: {appt.doctor.user.name}
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant="body1" style={{fontWeight:'bold'}}>
                           Specialization: {appt.doctor.specialization}
                         </Typography>
-                        <Typography variant="body1">
+                        <Typography variant="body1" style={{fontWeight:'bold'}}>
                           Time: {appt.startTime} - {appt.endTime}
                         </Typography>
                         <Typography

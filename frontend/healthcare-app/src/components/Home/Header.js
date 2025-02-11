@@ -26,9 +26,9 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
-    localStorage.removeItem('doctorid');
+    localStorage.removeItem('doctordetails');
     localStorage.removeItem('user');
-    localStorage.removeItem('userobj');
+    localStorage.removeItem('userdata');
     setIsAuthenticated(false);
     setRole(null);
     navigate('/'); 

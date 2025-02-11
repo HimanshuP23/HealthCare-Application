@@ -52,7 +52,7 @@ Team CareBuddy.`;
           // setShowSuccessPopup(true);
           navigate('/payment', { state: { amount: consultationFee, appointmentId: response.data.id, appointmentDate: response.data.appointmentDate, startTime: response.data.startTime, endTime: response.data.endTime, status: response.data.status,
             doctorId: location.state?.doctorId ? String(location.state.doctorId) : '',
-            doctorName: location.state?.doctorName || '',
+            // doctorName: location.state?.doctorName || '',
             specialization: location.state?.specialization || '',
             consultationFee: location.state?.consultationFee || ''  } });
         } catch (error) {

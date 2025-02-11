@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 //			User user=mapper.map(reqDTO, UserEntity.class);
 //			if(userRepository.existsByEmail(usr.getEmail()))
 //				throw new ApiException("Email already exists !!!");
-			usr.setPhoneNumber("+91" + usr.getPassword());
+			usr.setPhoneNumber("+91" + usr.getPhoneNumber());
 			usr.setPassword(encoder.encode(usr.getPassword()));//pwd : encrypted using SHA
 			return userRepository.save(usr);
 		}

@@ -81,6 +81,7 @@ const FindDoctors = () => {
 
   const handleBookAppointment = (doctor) => {
     // Pass the doctor details as state when navigating
+    console.log(doctor)
     navigate("/book-appointment", { 
       state: { 
         doctorId: String(doctor.doctorId), 

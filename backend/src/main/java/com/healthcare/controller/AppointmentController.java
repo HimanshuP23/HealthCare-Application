@@ -43,7 +43,7 @@ public class AppointmentController {
             Doctor doctor = new Doctor();
             doctor.setDoctorId(appointmentDto.getDoctorId());
             appointment.setDoctor(doctor);
-            
+            System.out.println(doctor);
             // Use the updated slot check (including appointmentDate)
             if (appointmentService.isSlotAvailable(
                     appointmentDto.getDoctorId(),
