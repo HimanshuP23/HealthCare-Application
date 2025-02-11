@@ -12,8 +12,10 @@ import DoctorAppointments from './pages/DoctorAppointments';
 import PatientAppointments from './pages/PatientAppointments';
 import HomePage from './components/Home/HomePage';
 import FindDoctors from './components/Home/FindDoctors';
+import PaymentInvoice from './components/Payment/PaymentInvoice';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ResetPassword from './components/Home/ResetPassword';
 
 import PaymentWrapper from './components/Payment/PaymentWrapper';
 
@@ -36,6 +38,7 @@ const App = () => {
         {/* Signin/Signup */}
         <Route path="/signup" element={<SignUp></SignUp>}></Route>
         <Route path="/signin" element={<SignIn></SignIn>}></Route>
+        <Route path="/reset-password" element={<ResetPassword></ResetPassword>}></Route>
 
         {/* Admin Panel */}
         <Route path="/admin/users" element={<AdminUserPanel></AdminUserPanel>}></Route>
@@ -53,7 +56,7 @@ const App = () => {
         <Route path="/find-doctors" element={<FindDoctors></FindDoctors>}></Route>
         
         <Route path='/payment' element={<PaymentWrapper></PaymentWrapper>}></Route>
-
+        <Route path='/payment-invoice' element={<PaymentInvoice></PaymentInvoice>}></Route>
         
       </Routes>
     </div>

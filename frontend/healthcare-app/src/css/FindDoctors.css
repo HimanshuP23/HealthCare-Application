@@ -71,4 +71,35 @@
     text-align: center;
     margin-bottom: 1.5rem;
   }
+
+  /* Modern styling for the filter dropdown */
+.modern-filter-dropdown {
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.modern-filter-dropdown:focus {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+/* Modern styling for the search input */
+.modern-search-input {
+  border: none;
+  border-radius: 30px;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+.modern-search-input:focus {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
   

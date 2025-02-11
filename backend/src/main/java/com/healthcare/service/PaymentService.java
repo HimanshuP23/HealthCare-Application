@@ -25,4 +25,8 @@ public interface PaymentService {
 	
 	PaymentResponseDTO mapToDTO(Payment payment);
 	
+	long getPaymentsCompletedCounts();
+	
+	long getPaymentsPendingCounts();
+	
 }

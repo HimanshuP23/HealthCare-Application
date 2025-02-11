@@ -1,10 +1,13 @@
 package com.healthcare.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import com.healthcare.entities.Appointment;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import com.healthcare.entities.Appointment;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
@@ -19,4 +22,16 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByPatient_UserId(Long userId);
 
     List<Appointment> findByDoctor_DoctorId(Long doctorId);
+    
+    @Query("SELECT COUNT(a) FROM Appointment a where a.status = 'SCHEDULED'")
+    long getAppointmentsScheduledCount();
+    
+    @Query("SELECT COUNT(a) FROM Appointment a where a.status = 'PENDING'")
+    long getAppointmentsPendingCount();
+    
+    @Query("SELECT COUNT(a) FROM Appointment a where a.status = 'COMPLETED'")
+    long getAppointmentsCompletedCount();
+    
+    @Query("SELECT COUNT(a) FROM Appointment a where a.status = 'CANCELLED'")
+    long getAppointmentsCancelledCount();
 }

@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                 .requestMatchers("/payments/**").permitAll()
+                .requestMatchers("/users/password/**").permitAll()
                 .anyRequest().authenticated() // All other requests must be authenticated
             )
             // Replace Basic Auth with custom JWT-based auth

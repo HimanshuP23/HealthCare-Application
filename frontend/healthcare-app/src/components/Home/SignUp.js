@@ -52,13 +52,19 @@ const SignUp = ({ showSignup, setShowSignup }) => {
           className="d-flex rounded-4 shadow-lg overflow-hidden position-relative"
           style={{ maxWidth: '900px', width: '100%', backgroundColor: '#ffffffdd', backdropFilter: 'blur(10px)' }}
         >
-          <button 
-            onClick={() => setShowSignup(false)} 
-            className="btn-close position-absolute top-0 end-0 m-3"
-            aria-label="Close"
-          >
-            <X size={24} />
-          </button>
+          <button
+              onClick={() => setShowSignup(false)}
+              className="btn-close position-absolute"
+              aria-label="Close"
+              style={{
+                top: "1.5rem",
+                right: "1.5rem",
+                zIndex: 1,
+                padding: "0.5rem",
+              }}
+            >
+              <X size={2} strokeWidth={2.5} />
+            </button>
           <div className="p-5 bg-white" style={{ flex: 1 }}>
             <h2 className="text-center text-dark mb-4">Create an Account</h2>
             {error && (

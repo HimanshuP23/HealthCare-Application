@@ -81,14 +81,16 @@
   background: #578FCA;
   font-family: 'Roboto', sans-serif;
   transition: background 0.3s ease;
+  margin-top: auto;
+  width: 100%;
 }
 .modern-footer h5 {
   font-family: 'Poppins', sans-serif;
   font-weight: 600;
 }
-.modern-footer .nav-link {
+.modern-footer .footer-link {
   transition: color 0.3s ease;
 }
-.modern-footer .nav-link:hover {
+.modern-footer .footer-link:hover {
   color: #ffc107;
 }

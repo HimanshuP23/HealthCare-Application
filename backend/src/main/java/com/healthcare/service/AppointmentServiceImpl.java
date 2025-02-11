@@ -1,12 +1,14 @@
 package com.healthcare.service;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.healthcare.dto.AppointmentDto;
 import com.healthcare.entities.Appointment;
 import com.healthcare.entities.AppointmentStatus;
 import com.healthcare.repository.AppointmentRepository;
@@ -18,7 +20,7 @@ import jakarta.transaction.Transactional;
 public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
-    private AppointmentRepository appointmentRepository;
+    private AppointmentRepository appointmentRepository;	
 
 //    @Override
 //    public boolean isSlotAvailable(Appointment appointment) {
@@ -93,9 +95,26 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getDoctorDashboard(Long doctorId) {
-        return appointmentRepository.findByDoctor_DoctorId(doctorId);
+    public List<AppointmentDto> getDoctorDashboard(Long doctorId) {
+        List<Appointment> appointments = appointmentRepository.findByDoctor_DoctorId(doctorId);
+        List<AppointmentDto> appointmentDtos = new ArrayList<>();
+
+        for (Appointment appointment : appointments) {
+            AppointmentDto appointmentDto = new AppointmentDto();
+            appointmentDto.setAppointmentDate(appointment.getAppointmentDate());
+            appointmentDto.setStartTime(appointment.getStartTime());
+            appointmentDto.setEndTime(appointment.getEndTime());
+            appointmentDto.setStatus(appointment.getStatus());
+            appointmentDto.setDoctorId(appointment.getDoctorId());
+            appointmentDto.setPatientId(appointment.getPatient().getUserId()); // Assuming the 'User' entity has a 'getUserId()' method
+            appointmentDto.setCreatedAt(appointment.getCreatedAt());
+            
+            appointmentDtos.add(appointmentDto);
+        }
+        
+        return appointmentDtos;
     }
+
 
     @Override
     public boolean isSlotAvailable(Long doctorId, LocalDate appointmentDate, LocalTime startTime, LocalTime endTime) {
@@ -105,4 +124,28 @@ public class AppointmentServiceImpl implements AppointmentService {
                 endTime,
                 startTime);
     }
+
+	@Override
+	public long getAppointmentPendingCounts() {
+		// TODO Auto-generated method stub
+		return appointmentRepository.getAppointmentsPendingCount();
+	}
+
+	@Override
+	public long getAppointmentScheduledCounts() {
+		return appointmentRepository.getAppointmentsScheduledCount();
+	}
+
+	@Override
+	public long getAppointmentCompletedCounts() {
+		return appointmentRepository.getAppointmentsCompletedCount();
+	}
+
+	@Override
+	public long getAppointmentCancelledCounts() {
+		return appointmentRepository.getAppointmentsCancelledCount();
+	}
+
+	
+   
 }

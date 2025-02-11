@@ -4,6 +4,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../../css/PaymentForm.css'; // Import the custom CSS for styling
+import { sendNotification } from '../../services/api';
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -15,6 +16,17 @@ const PaymentForm = () => {
   const [appointmentId, setAppointmentId] = useState(location.state?.appointmentId || '');
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
+  const [generatingInvoice, setGeneratingInvoice] = useState(false);  // State to control invoice generation message
+  const user = JSON.parse(localStorage.getItem("userobj"));
+  const doctorId = location.state?.doctorId ? String(location.state.doctorId) : '';
+  const doctorName = location.state?.doctorName || '';
+  const consultationFee =  location.state?.consultationFee || '';
+  const specialization = location.state?.specialization || '';
+  const appointmentDate = location.state?.appointmentDate || '';
+  const startTime = location.state?.startTime || '';
+  const endTime = location.state?.endTime || '';
+  const status = location.state?.status || '';
+
   console.log("PaymentForm loaded with amount:", amount, "and appointmentId:", appointmentId);
 
   const handleSubmit = async (e) => {
@@ -23,10 +35,12 @@ const PaymentForm = () => {
 
     setLoading(true);
     setMessage('');
+    setGeneratingInvoice(false); // Reset invoice message on submit
 
     try {
         const payload = { amount: amount, appointmentId: appointmentId };
         console.log("Sending payment intent payload:", payload);  
+      
       // 1. Call backend to create a PaymentIntent and get the client secret.
       const intentRes = await axios.post('http://localhost:8080/payments/create-payment-intent', {
         amount: amount, // Ensure backend converts to the smallest unit (cents) if needed
@@ -40,6 +54,11 @@ const PaymentForm = () => {
           card: elements.getElement(CardElement),
         },
       });
+      // Send notification to the user (both email and SMS will be sent by backend)
+      const notificationMessage =  `Hey ${user.name}, your payment of Rs.${consultationFee} was successful and your appointment with Dr.${doctorName}(${specialization}) on ${appointmentDate} between ${startTime}-${endTime} has been successfully SCHEDULED. Be there, Thankyou for using CareBuddy.
+Regards,
+Team CareBuddy.`;
+      await sendNotification(user.userId, notificationMessage);
 
       if (result.error) {
         setMessage(result.error.message);
@@ -53,7 +72,12 @@ const PaymentForm = () => {
           appointmentId: appointmentId,
         });
         setMessage("Payment Successful!");
-        // navigate('/book-appointment', { state: { success: true } });
+
+        // Display "Generating invoice" message and wait 5 seconds
+        setGeneratingInvoice(true);
+        setTimeout(() => {
+          navigate("/");  // Navigate after 5 seconds
+        }, 3000);  // 5 seconds delay
       }
     } catch (error) {
       console.error("Payment error", error);
@@ -70,6 +94,7 @@ const PaymentForm = () => {
         </div>
         <div className="card-body">
           {message && <div className="alert alert-info">{message}</div>}
+          {generatingInvoice && <div className="alert alert-warning">Redirecting to Home Page, please wait...</div>}
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="amount" className="form-label">Amount</label>
@@ -84,18 +109,6 @@ const PaymentForm = () => {
                 required
               />
             </div>
-            {/* <div className="mb-3">
-              <label htmlFor="appointmentId" className="form-label">Appointment ID</label>
-              <input
-                id="appointmentId"
-                type="text"
-                className="form-control"
-                value={appointmentId}
-                onChange={(e) => setAppointmentId(e.target.value)}
-                placeholder="Enter Appointment ID"
-                required
-              />
-            </div> */}
             <div className="mb-3">
               <label className="form-label">Card Details</label>
               <div className="card-element-wrapper p-2 border rounded">
@@ -125,4 +138,4 @@ const PaymentForm = () => {
   );
 };
 
-export default PaymentForm; 
+export default PaymentForm;

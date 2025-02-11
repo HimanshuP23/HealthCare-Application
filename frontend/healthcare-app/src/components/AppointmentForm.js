@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { bookAppointment } from '../services/api';
+import { bookAppointment, sendNotification } from '../services/api';
 import {
     Container,
     TextField,
@@ -10,20 +10,11 @@ import {
     Grid,
     InputAdornment,
   } from "@mui/material";
-<<<<<<< Updated upstream
-  import { CalendarToday, Schedule, Person } from "@mui/icons-material";
-import { useLocation } from 'react-router-dom';
-
-const AppointmentForm = ({ userId }) => {
-    console.log(userId)
-    const location = useLocation();
-    const [appointment, setAppointment] = useState({
-
-        doctorId: location.state?.doctorId,
-=======
 import { CalendarToday, Schedule, Person } from "@mui/icons-material";
 import { useLocation } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import Header from './Home/Header';
+import Footer from './Home/Footer';
 
 const AppointmentForm = ({ userId }) => {
     const location = useLocation();
@@ -33,16 +24,12 @@ const AppointmentForm = ({ userId }) => {
         doctorName: location.state?.doctorName || '',
         consultationFee: location.state?.consultationFee || '',
         specialization: location.state?.specialization || '',
->>>>>>> Stashed changes
         startTime: '',
         endTime: '',
         appointmentDate: ''
     });
-<<<<<<< Updated upstream
-    
-=======
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
->>>>>>> Stashed changes
+    const user = JSON.parse(localStorage.getItem("userobj"));
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -57,21 +44,28 @@ const AppointmentForm = ({ userId }) => {
           });
           console.log("Booking response:", response.data);
           // alert("Booking Successful");
-          navigate('/payment', { state: { amount: consultationFee, appointmentId: response.data.id  } });
+          // Send notification to the user (both email and SMS will be sent by backend)
+          const notificationMessage =  `Hey ${user.name}, Thankyou for showing interest in booking appointment with Dr.${doctorName}(${specialization}) through CareBuddy. Complete the payment of Rs.${consultationFee} to confirm your appointment.
+Regards,
+Team CareBuddy.`;
+          await sendNotification(userId, notificationMessage);
+          // setShowSuccessPopup(true);
+          navigate('/payment', { state: { amount: consultationFee, appointmentId: response.data.id, appointmentDate: response.data.appointmentDate, startTime: response.data.startTime, endTime: response.data.endTime, status: response.data.status,
+            doctorId: location.state?.doctorId ? String(location.state.doctorId) : '',
+            doctorName: location.state?.doctorName || '',
+            specialization: location.state?.specialization || '',
+            consultationFee: location.state?.consultationFee || ''  } });
         } catch (error) {
             alert('Failed to book appointment: ' + error.message);
         }
     };
 
-<<<<<<< Updated upstream
-    return (
-    <Container maxWidth="sm" sx={{ mt: 5 }}>
-=======
 
 
     return (
-      <Container maxWidth="sm" sx={{ mt: 5 }}>
->>>>>>> Stashed changes
+      <div>
+        <Header></Header>
+      <Container maxWidth="sm" sx={{ mt: 5, mb: 15 }}>
       <Card elevation={4} sx={{ p: 3, borderRadius: 2 }}>
         <CardContent>
           <Typography
@@ -96,9 +90,6 @@ const AppointmentForm = ({ userId }) => {
                   required
                   margin="normal"
                   InputProps={{
-<<<<<<< Updated upstream
-                    readOnly: true,
-=======
                     readOnly:true,
                     startAdornment: (
                       <InputAdornment position="start">
@@ -120,7 +111,6 @@ const AppointmentForm = ({ userId }) => {
                   margin="normal"
                   InputProps={{
                     readOnly:true,
->>>>>>> Stashed changes
                     startAdornment: (
                       <InputAdornment position="start">
                         <Person />
@@ -216,6 +206,8 @@ const AppointmentForm = ({ userId }) => {
                 </div>
       )}
     </Container>
+    <Footer></Footer>
+    </div>
     );
 };
 

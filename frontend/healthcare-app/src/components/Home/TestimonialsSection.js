@@ -6,13 +6,13 @@ const testimonials = [
   {
     name: "Avinash Kumar",
     feedback:
-      "Very good app. Well thought out about booking/rescheduling/canceling an appointment. Also, Doctor's feedback mechanism is good.",
+      "Very good app. Well thought out about booking/rescheduling/canceling an appointment. Also, Email/SMS Notification mechanism is good.",
     img: "/images/user1.jpg"
   },
   {
     name: "Anjali Sharma",
     feedback:
-      "I had an amazing experience consulting a doctor online. Highly recommend Practo!",
+      "I had an amazing experience consulting a doctor online. Highly recommend CareBuddy!",
     img: "/images/user2.png"
   }
 ];

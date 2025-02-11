@@ -29,5 +29,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Long> {
     // Use JPQL to fetch a Doctor by the associated User ID
     @Query("SELECT d FROM Doctor d WHERE d.user.id = :userId")
     Optional<Doctor> findByUserId(@Param("userId") Long userId);
+    
+    @Query("SELECT COUNT(d) FROM Doctor d")
+    long getDoctorCount();
 
 }

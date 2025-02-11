@@ -27,6 +27,6 @@ public interface DoctorService {
 	
 	List<Doctor> getDoctorsByAvailableDays(String availableDays);
 
-	
+	long getDoctorCounts();
 
 }

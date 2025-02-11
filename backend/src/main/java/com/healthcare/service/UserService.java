@@ -18,6 +18,7 @@ public interface UserService {
 	
 	List<User> getUsersByRole(Role role);
 
+	long getPatientCounts();
 	
 	
 }

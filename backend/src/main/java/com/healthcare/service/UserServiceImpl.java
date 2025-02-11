@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
 //			User user=mapper.map(reqDTO, UserEntity.class);
 //			if(userRepository.existsByEmail(usr.getEmail()))
 //				throw new ApiException("Email already exists !!!");
-//			
+			usr.setPhoneNumber("+91" + usr.getPassword());
 			usr.setPassword(encoder.encode(usr.getPassword()));//pwd : encrypted using SHA
 			return userRepository.save(usr);
 		}
@@ -69,6 +69,12 @@ public class UserServiceImpl implements UserService {
 	    public List<User> getUsersByRole(Role role) {
 	        return userRepository.findByRole(role); // Assuming you're using a repository method to find users by role
 	    }
+
+		@Override
+		public long getPatientCounts() {
+			// TODO Auto-generated method stub
+			return userRepository.getPatientCount();
+		}
 	    
 	   
 

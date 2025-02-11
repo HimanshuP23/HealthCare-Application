@@ -1,6 +1,7 @@
 package com.healthcare.dto;
 
 import com.healthcare.entities.Doctor;
+import com.healthcare.entities.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,18 +18,21 @@ public class SigninResponse {
     private String role; // Add role to the response
     private Long userId;
     private Doctor doctorDetails;
+    private User user;
     
-    public SigninResponse(String jwt, String mesg, String role, Long userId) {
+    public SigninResponse(String jwt, String mesg, String role, Long userId, User user) {
         this.jwt = jwt;
         this.mesg = mesg;
         this.role = role;
         this.userId = userId;
+        this.user = user;
     }
-    public SigninResponse(String jwt, String mesg, String role, Long userId,Doctor doctorDetails) {
+    public SigninResponse(String jwt, String mesg, String role, Long userId,Doctor doctorDetails,User user) {
         this.jwt = jwt;
         this.mesg = mesg;
         this.role = role;
         this.userId = userId;
         this.doctorDetails = doctorDetails;
+        this.user = user;
     }
 }

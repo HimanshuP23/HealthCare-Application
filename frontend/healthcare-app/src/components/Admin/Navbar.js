@@ -7,7 +7,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove JWT token from localStorage
-    navigate("/signin"); // Redirect to sign-in page
+    navigate("/"); // Redirect to sign-in page
   };
 
   const toHome = () => {

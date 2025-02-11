@@ -1,8 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Image } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+import LoginModal from './SignIn'; // Import the Login Modal
 import '../../css/HomePage.css';
 
 const HeroSection = () => {
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // State to track authentication status
+  const [showLogin, setShowLogin] = useState(false); // State to control LoginModal
+
+  // Check localStorage on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
+
+  // Handle Consult Now button click
+  const handleConsultNowClick = () => {
+    if (!isAuthenticated) {
+      setShowLogin(true); // Show the login modal if not authenticated
+    } else {
+      navigate('/find-doctors'); // Navigate to Find Doctors page if authenticated
+    }
+  };
+
   return (
     <Container fluid className="bg-light py-5 modern-hero">
       <Row className="align-items-center">
@@ -16,7 +39,7 @@ const HeroSection = () => {
             Private online consultations with verified doctors across all
             specialties.
           </p>
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" onClick={handleConsultNowClick}>
             Consult Now
           </Button>
         </Col>
@@ -29,6 +52,9 @@ const HeroSection = () => {
           />
         </Col>
       </Row>
+
+      {/* Include the Login Modal */}
+      <LoginModal showLogin={showLogin} setShowLogin={setShowLogin} />
     </Container>
   );
 };

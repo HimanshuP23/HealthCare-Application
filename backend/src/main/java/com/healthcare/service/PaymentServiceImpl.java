@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.healthcare.dto.PaymentRequestDTO;
 import com.healthcare.dto.PaymentResponseDTO;
 import com.healthcare.entities.Appointment;
+import com.healthcare.entities.AppointmentStatus;
 import com.healthcare.entities.Payment;
 import com.healthcare.exceptions.EntityNotFoundException;
 import com.healthcare.repository.AppointmentRepository;
@@ -75,6 +76,7 @@ public class PaymentServiceImpl implements PaymentService {
         payment.setPaymentStatus(paymentRequestDTO.getPaymentStatus());
         payment.setPaymentDate(LocalDateTime.now());
         payment.setAppointment(appointment);
+        appointment.setStatus(AppointmentStatus.SCHEDULED);
 
         // Generate unique transaction ID
         String transactionId = generateTransactionId();
@@ -142,4 +144,14 @@ public class PaymentServiceImpl implements PaymentService {
         dto.setAppointmentId(payment.getAppointment().getId());
         return dto;
     }
+
+	@Override
+	public long getPaymentsCompletedCounts() {
+		 return paymentRepository.getPaymentsCompletedCount();
+	}
+
+	@Override
+	public long getPaymentsPendingCounts() {
+		return paymentRepository.getPaymentsPendingCount();
+	}
 }

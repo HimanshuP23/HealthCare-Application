@@ -5,6 +5,7 @@ import com.healthcare.entities.Appointment;
 import com.healthcare.entities.AppointmentStatus;
 import com.healthcare.entities.Doctor;
 import com.healthcare.entities.User;
+import com.healthcare.repository.AppointmentRepository;
 import com.healthcare.service.AppointmentService;
 import com.healthcare.service.AppointmentServiceImpl;
 
@@ -23,6 +24,8 @@ public class AppointmentController {
 
     @Autowired
     private AppointmentService appointmentService;
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PreAuthorize("hasRole('PATIENT')")
@@ -35,7 +38,7 @@ public class AppointmentController {
             appointment.setStartTime(appointmentDto.getStartTime());
             appointment.setEndTime(appointmentDto.getEndTime());
             appointment.setPatient(new User(appointmentDto.getPatientId()));
-            appointment.setStatus(AppointmentStatus.SCHEDULED);
+            appointment.setStatus(AppointmentStatus.PENDING);
             
             Doctor doctor = new Doctor();
             doctor.setDoctorId(appointmentDto.getDoctorId());
@@ -89,9 +92,14 @@ public class AppointmentController {
     @CrossOrigin(origins = "http://localhost:3000")
     @PreAuthorize("hasRole('DOCTOR')")
     @GetMapping("/doctor/dashboard/{doctorId}")
-    public ResponseEntity<List<Appointment>> getDoctorDashboard(@PathVariable Long doctorId) {
-        return ResponseEntity.ok(appointmentService.getDoctorDashboard(doctorId));
+    public ResponseEntity<?> getDoctorAppointments(@PathVariable Long doctorId) {
+        List<AppointmentDto> appointmentDtos = appointmentService.getDoctorDashboard(doctorId);
+        if (appointmentDtos.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(appointmentDtos);
     }
+
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
@@ -112,5 +120,33 @@ public class AppointmentController {
             return ResponseEntity.ok("Appointment cancelled successfully");
         }
         return ResponseEntity.badRequest().body("Cannot cancel a completed appointment");
+    }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @GetMapping("/scheduled/count")
+    public long getTotalAppointmentScheduledCount() {
+        return appointmentService.getAppointmentScheduledCounts();
+    }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @GetMapping("/pending/count")
+    public long getTotalAppointmentPendingCount() {
+        return appointmentService.getAppointmentPendingCounts();
+    }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @GetMapping("/completed/count")
+    public long getTotalAppointmentCompletedCount() {
+        return appointmentService.getAppointmentCompletedCounts();
+    }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
+    @GetMapping("/cancelled/count")
+    public long getTotalAppointmentCancelledCount() {
+        return appointmentService.getAppointmentCancelledCounts();
     }
 }

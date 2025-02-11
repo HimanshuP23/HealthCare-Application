@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 const API_URL = 'http://localhost:8080/api/appointments';
+const NOTIFICATION_URL = 'http://localhost:8080/notifications';
+
 
 const getAuthHeaders = () => {
     const token = localStorage.getItem('token'); // Assuming token is stored in localStorage
@@ -13,11 +15,26 @@ const getAuthHeaders = () => {
     };
 };
 
+// Send Notification API call with auth headers
+export const sendNotification = async (userId, message) => {
+    return axios.post(
+        `${NOTIFICATION_URL}/`, 
+        null, 
+        {
+            params: { userId, message },
+            ...getAuthHeaders()
+        }
+    );
+};
+
+
 export const bookAppointment = (appointment) => {
     // console.log(appointment);
     // console.log(localStorage.getItem('token'));
     return axios.post(`${API_URL}/addAppointment`, appointment, getAuthHeaders());
 };
+
+
 
 export const getAppointmentsByUser = (userId) => {
     return axios.get(`${API_URL}/user/${userId}`, getAuthHeaders());

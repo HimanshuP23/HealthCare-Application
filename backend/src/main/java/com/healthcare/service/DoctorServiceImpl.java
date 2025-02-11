@@ -116,7 +116,10 @@ public class DoctorServiceImpl implements DoctorService {
 	    return doctorRepository.findByAvailableDays(availableDays);
 	}
 
-	
+	@Override
+	public long getDoctorCounts() {
+		return doctorRepository.getDoctorCount();
+	}
 	
 
 }

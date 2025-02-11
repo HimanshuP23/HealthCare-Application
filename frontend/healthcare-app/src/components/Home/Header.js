@@ -26,9 +26,21 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    localStorage.removeItem('doctorid');
+    localStorage.removeItem('user');
+    localStorage.removeItem('userobj');
     setIsAuthenticated(false);
     setRole(null);
     navigate('/'); 
+  };
+
+  // Handle the Find Doctors button click
+  const handleFindDoctorsClick = () => {
+    if (!isAuthenticated) {
+      setShowLogin(true); // Show the login modal if not authenticated
+    } else {
+      navigate('/find-doctors'); // Navigate to Find Doctors page if authenticated
+    }
   };
 
   return (
@@ -39,9 +51,13 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto">
-              <Nav.Link href="/find-doctors">Find Doctors</Nav.Link>
-              
+              {/* Find Doctors button */}
+              <Nav.Link onClick={handleFindDoctorsClick}>Find Doctors</Nav.Link>
+
               {/* Conditionally show dashboard links based on the role */}
+              {isAuthenticated && role === 'PATIENT' && (
+                <Nav.Link href="/patient-appointments">Patient Dashboard</Nav.Link>
+              )}
               {isAuthenticated && role === 'ADMIN' && (
                 <Nav.Link href="/admin/home">Admin Dashboard</Nav.Link>
               )}

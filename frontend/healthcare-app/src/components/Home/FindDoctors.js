@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../css/FindDoctors.css";
 import Header from "./Header";
+import Footer from "./Footer";
 
 const FindDoctors = () => {
   // Store all fetched doctors and the currently displayed (filtered) doctors.
@@ -78,21 +79,16 @@ const FindDoctors = () => {
     }
   }, [searchQuery, filterType, allDoctors]);
 
-<<<<<<< Updated upstream
-  const handleBookAppointment = (doctorId) => {
-    navigate("/book-appointment", {state:{doctorId}});
-=======
   const handleBookAppointment = (doctor) => {
     // Pass the doctor details as state when navigating
     navigate("/book-appointment", { 
       state: { 
-          doctorId: String(doctor.doctorId), 
-          doctorName: doctor.doctorname, 
-          specialization: doctor.specialization,
-          consultationFee: doctor.consultationFee
+        doctorId: String(doctor.doctorId), 
+        doctorName: doctor.doctorname, 
+        specialization: doctor.specialization,
+        consultationFee: doctor.consultationFee
       } 
     });
->>>>>>> Stashed changes
   };
 
   // Toggle phone number visibility
@@ -107,13 +103,13 @@ const FindDoctors = () => {
       <div className="full-page-bg"></div>
 
       <div className="container mt-4">
-        <h2 className="mb-4 component-title">Find Doctor</h2>
+        <h2 className="mb-4 component-title">Find Doctors</h2>
 
         {/* Search & Filter Section */}
         <div className="row mb-4 align-items-center">
           <div className="col-md-3">
             <select
-              className="form-select"
+              className="form-select modern-filter-dropdown"
               value={filterType}
               onChange={(e) => setFilterType(e.target.value)}
             >
@@ -128,7 +124,7 @@ const FindDoctors = () => {
           <div className="col-md-9">
             <input
               type="text"
-              className="form-control"
+              className="form-control modern-search-input"
               placeholder="Search doctors..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -165,8 +161,7 @@ const FindDoctors = () => {
                     <strong>Specialization:</strong> {doctor.specialization}
                   </p>
                   <p className="mb-1">
-                    <strong>Experience:</strong> {doctor.experienceYears} years
-                    overall
+                    <strong>Experience:</strong> {doctor.experienceYears} years overall
                   </p>
                   <p className="mb-1">
                     <strong>Clinic Address:</strong> {doctor.clinicAddress}
@@ -175,14 +170,10 @@ const FindDoctors = () => {
                     <strong>Consultation Fee:</strong> ₹{doctor.consultationFee}
                   </p>
                   <p className="mb-1">
-                    <strong>Patient Stories:</strong>{" "}
-                    {doctor.patientStories || "50"}
+                    <strong>Patient Stories:</strong> {doctor.patientStories || "50"}
                   </p>
                   <p className="mb-1">
-                    <strong>Rating:</strong>{" "}
-                    <span className="badge bg-success">
-                      ✅ {doctor.rating || "90%"}
-                    </span>
+                    <strong>Rating:</strong> <span className="badge bg-success">✅ {doctor.rating || "90%"}</span>
                   </p>
                 </Col>
 
@@ -195,7 +186,6 @@ const FindDoctors = () => {
                     onClick={() => handleBookAppointment(doctor)}
                   >
                     Book Appointment <br />
-                    {/* <small>No Booking Fee</small> */}
                   </Button>
                   {showPhoneNumberFor === doctor.doctorId ? (
                     <div className="phone-number-display">
@@ -236,6 +226,7 @@ const FindDoctors = () => {
           <p>No doctors available at the moment.</p>
         )}
       </div>
+      <Footer />
     </div>
   );
 };

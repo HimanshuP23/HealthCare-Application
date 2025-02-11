@@ -97,5 +97,12 @@ public class DoctorController {
     public ResponseEntity<List<Doctor>> getDoctorsByAvailableDays(@RequestParam String availableDays) {
         return ResponseEntity.ok(doctorService.getDoctorsByAvailableDays(availableDays));
     }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/count")
+    @PreAuthorize("hasAuthority('DOCTOR') or hasAuthority('ADMIN') or hasAuthority('PATIENT')")
+    public long getTotalDoctorCount() {
+        return doctorService.getDoctorCounts();
+    }
 
 }
