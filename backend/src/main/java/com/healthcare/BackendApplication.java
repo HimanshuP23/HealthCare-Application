@@ -11,13 +11,28 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 @SpringBootApplication
 @EntityScan(basePackages = "com.healthcare.entities")
 @EnableAsync
 public class BackendApplication {
-
+	
+	
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.load(); // Load .env variables
+	    System.setProperty("DATASOURCE_URL", dotenv.get("DATASOURCE_URL"));
+	    System.setProperty("DATASOURCE_USER", dotenv.get("DATASOURCE_USER"));
+	    System.setProperty("DATASOURCE_PASSWORD", dotenv.get("DATASOURCE_PASSWORD"));
+	    System.setProperty("JWT_SECRET", dotenv.get("JWT_SECRET"));
+	    System.setProperty("MAIL_USERNAME", dotenv.get("MAIL_USERNAME"));
+	    System.setProperty("MAIL_PASSWORD", dotenv.get("MAIL_PASSWORD"));
+	    System.setProperty("STRIPE_SECRET_KEY", dotenv.get("STRIPE_SECRET_KEY"));
+	    System.setProperty("FRONTEND_URL", dotenv.get("FRONTEND_URL"));
+		
 		SpringApplication.run(BackendApplication.class, args);
+		
+		
 	}
 	
 	@Bean // equivalent to <bean id ..../> in xml file

@@ -4,9 +4,11 @@ import axios from 'axios';
 
 const PaymentHistory = ({ userId }) => {
   const [payments, setPayments] = useState([]);
+  const urls = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/payments/user/${userId}`)
+    axios.get(`${urls}/payments/user/${userId}`)
       .then(response => setPayments(response.data))
       .catch(error => console.error("Error fetching payment history", error));
   }, [userId]);

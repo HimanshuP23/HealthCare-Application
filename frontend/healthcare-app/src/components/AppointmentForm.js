@@ -30,6 +30,7 @@ const AppointmentForm = ({ userId }) => {
     });
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const user = JSON.parse(localStorage.getItem("userobj"));
+    const urls = process.env.REACT_APP_API_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();

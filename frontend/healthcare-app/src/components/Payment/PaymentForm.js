@@ -26,6 +26,7 @@ const PaymentForm = () => {
   const startTime = location.state?.startTime || '';
   const endTime = location.state?.endTime || '';
   const status = location.state?.status || '';
+  const urls = process.env.REACT_APP_API_URL;
 
   console.log("PaymentForm loaded with amount:", amount, "and appointmentId:", appointmentId);
 
@@ -42,7 +43,7 @@ const PaymentForm = () => {
         console.log("Sending payment intent payload:", payload);  
       
       // 1. Call backend to create a PaymentIntent and get the client secret.
-      const intentRes = await axios.post('http://localhost:8080/payments/create-payment-intent', {
+      const intentRes = await axios.post(`${urls}/payments/create-payment-intent`, {
         amount: amount, // Ensure backend converts to the smallest unit (cents) if needed
         appointmentId: appointmentId,
       });
@@ -64,7 +65,7 @@ Team CareBuddy.`;
         setMessage(result.error.message);
       } else if (result.paymentIntent.status === 'succeeded') {
         // 3. On successful payment, record the details in your backend.
-        await axios.post('http://localhost:8080/payments/', {
+        await axios.post(`${urls}/payments/`, {
           amountPaid: parseFloat(amount),
           paymentMethod: "CREDIT", // Adjust as needed.
           transactionId: result.paymentIntent.id,

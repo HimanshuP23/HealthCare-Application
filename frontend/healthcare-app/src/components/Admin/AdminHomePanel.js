@@ -21,13 +21,14 @@ export default function AdminHomePanel() {
   const [cancelledCount, setCancelledCount] = useState(0);
   const [paymentCompletedCount, setPaymentCompletedCount] = useState(0);
   const [paymentPendingCount, setPaymentPendingCount] = useState(0);
+  const urls = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const token = localStorage.getItem('token');
 
     // Fetch Total Patients Count
     axios
-      .get('http://localhost:8080/users/patients/count', {
+      .get(`${urls}/users/patients/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -39,7 +40,7 @@ export default function AdminHomePanel() {
 
     // Fetch Total Doctors Count
     axios
-      .get('http://localhost:8080/doctors/count', {
+      .get(`${urls}/doctors/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -51,7 +52,7 @@ export default function AdminHomePanel() {
 
     // Fetch Scheduled Appointments Count
     axios
-      .get('http://localhost:8080/api/appointments/scheduled/count', {
+      .get(`${urls}/api/appointments/scheduled/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -63,7 +64,7 @@ export default function AdminHomePanel() {
 
     // Fetch Pending Appointments Count
     axios
-      .get('http://localhost:8080/api/appointments/pending/count', {
+      .get(`${urls}/api/appointments/pending/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -75,7 +76,7 @@ export default function AdminHomePanel() {
 
     // Fetch Completed Appointments Count
     axios
-      .get('http://localhost:8080/api/appointments/completed/count', {
+      .get(`${urls}/api/appointments/completed/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -87,7 +88,7 @@ export default function AdminHomePanel() {
 
     // Fetch Cancelled Appointments Count
     axios
-      .get('http://localhost:8080/api/appointments/cancelled/count', {
+      .get(`${urls}/api/appointments/cancelled/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -99,7 +100,7 @@ export default function AdminHomePanel() {
 
     // Fetch Completed Payments Count
     axios
-      .get('http://localhost:8080/payments/completed/count', {
+      .get(`${urls}/payments/completed/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
@@ -111,7 +112,7 @@ export default function AdminHomePanel() {
 
     // Fetch Pending Payments Count
     axios
-      .get('http://localhost:8080/payments/pending/count', {
+      .get(`${urls}/payments/pending/count`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {

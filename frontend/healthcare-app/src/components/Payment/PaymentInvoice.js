@@ -8,11 +8,13 @@ const PaymentInvoice = () => {
   const [invoice, setInvoice] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const urls = process.env.REACT_APP_API_URL;
+
 
   useEffect(() => {
     const fetchInvoice = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/invoices/download/${paymentId}`, {
+        const response = await axios.get(`${urls}/invoices/download/${paymentId}`, {
           responseType: 'blob',
         });
         const url = URL.createObjectURL(response.data);

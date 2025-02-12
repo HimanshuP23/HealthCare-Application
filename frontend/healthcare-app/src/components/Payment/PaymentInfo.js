@@ -6,11 +6,12 @@ const PaymentInfo = () => {
   const [appointmentId, setAppointmentId] = useState('');
   const [payment, setPayment] = useState(null);
   const [error, setError] = useState('');
+  const urls = process.env.REACT_APP_API_URL;
 
   const handleFetchPayment = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:8080/payments/appointment/${appointmentId}`);
+      const response = await axios.get(`${urls}/payments/appointment/${appointmentId}`);
       setPayment(response.data);
       setError('');
     } catch (err) {

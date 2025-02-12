@@ -8,10 +8,11 @@ const ResetPassword = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const token = new URLSearchParams(location.search).get("token"); // Get token from URL
+  const urls = process.env.REACT_APP_API_URL;
 
   const handleResetPassword = async () => {
     try {
-      const response = await axios.post(`http://localhost:8080/users/password/reset-password?token=${token}`, { newPassword });
+      const response = await axios.post(`${urls}/users/password/reset-password?token=${token}`, { newPassword });
       setMessage(response.data);
       setTimeout(() => navigate("/"), 1000); // Redirect to login after success
     } catch (error) {

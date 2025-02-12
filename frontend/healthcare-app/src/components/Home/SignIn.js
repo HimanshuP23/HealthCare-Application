@@ -16,13 +16,14 @@ const SignIn = ({ showLogin, setShowLogin }) => {
   const [showSignup, setShowSignup] = useState(false); // State for signup modal
   const [showForgotPassword, setShowForgotPassword] = useState(false); // State for forgot password modal
   const navigate = useNavigate();
+  const urls = process.env.REACT_APP_API_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/users/signin', {
+      const response = await axios.post(`${urls}/users/signin`, {
         email,
         password,
       });

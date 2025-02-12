@@ -15,6 +15,8 @@ const AdminDoctorPanel = () => {
   const [showSuccessUpdated, setShowSuccessUpdated] = useState(false); // State for update success popup
   const [searchQuery, setSearchQuery] = useState("");  // To store search input
   const [filterType, setFilterType] = useState("");  // To store selected filter type
+  const urls = process.env.REACT_APP_API_URL;
+  console.log(urls);
 
   const [formValues, setFormValues] = useState({
     doctorId: "",
@@ -37,24 +39,24 @@ const AdminDoctorPanel = () => {
   // Fetch all doctors
   const fetchDoctors = async () => {
     try {
-      let url = "http://localhost:8080/admin/doctor/getalldoctors";
+      let url = `${urls}/admin/doctor/getalldoctors`;
       
       if (searchQuery) {
         switch (filterType) {
           case "specialization":
-            url = `http://localhost:8080/admin/doctor/getdoctorsbyspecialization?specialization=${searchQuery}`;
+            url = `${urls}/admin/doctor/getdoctorsbyspecialization?specialization=${searchQuery}`;
             break;
           case "qualification":
-            url = `http://localhost:8080/admin/doctor/getdoctorsbyqualification?qualification=${searchQuery}`;
+            url = `${urls}/admin/doctor/getdoctorsbyqualification?qualification=${searchQuery}`;
             break;
           case "experienceYears":
-            url = `http://localhost:8080/admin/doctor/getdoctorsbyexperience?experienceYears=${searchQuery}`;
+            url = `${urls}/admin/doctor/getdoctorsbyexperience?experienceYears=${searchQuery}`;
             break;
           case "clinicAddress":
-            url = `http://localhost:8080/admin/doctor/getdoctorsbyaddress?clinicAddress=${searchQuery}`;
+            url = `${urls}/admin/doctor/getdoctorsbyaddress?clinicAddress=${searchQuery}`;
             break;
           case "availableDays":
-            url = `http://localhost:8080/admin/doctor/getdoctorsbydays?availableDays=${searchQuery}`;
+            url = `${urls}/admin/doctor/getdoctorsbydays?availableDays=${searchQuery}`;
             break;
           default:
             break;
@@ -137,14 +139,14 @@ const AdminDoctorPanel = () => {
     try {
       if (selectedDoctor) {
         await axios.put(
-          `http://localhost:8080/admin/doctor/updatedoctor/${selectedDoctor.doctorId}`,
+          `${urls}/admin/doctor/updatedoctor/${selectedDoctor.doctorId}`,
           formValues,
           { headers }
         );
         showSuccessUpdatedPopup();
       } else {
         await axios.post(
-          `http://localhost:8080/admin/doctor/createdoctor/${formValues.userId}`,
+          `${urls}/admin/doctor/createdoctor/${formValues.userId}`,
           formValues,
           { headers }
         );
@@ -166,7 +168,7 @@ const AdminDoctorPanel = () => {
   // Delete doctor
   const deleteDoctor = async () => {
     try {
-      await axios.delete(`http://localhost:8080/admin/doctor/deletedoctor/${selectedDoctor}`, {
+      await axios.delete(`${urls}/admin/doctor/deletedoctor/${selectedDoctor}`, {
         headers,
       });
       fetchDoctors();

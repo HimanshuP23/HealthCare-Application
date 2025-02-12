@@ -13,6 +13,7 @@ const SignUp = ({ showSignup, setShowSignup }) => {
   const [error, setError] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [success, setSuccess] = useState(null);
+  const urls = process.env.REACT_APP_API_URL;
 
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -20,7 +21,7 @@ const SignUp = ({ showSignup, setShowSignup }) => {
     setSuccess(null);
 
     try {
-      const response = await axios.post('http://localhost:8080/users/signup', {
+      const response = await axios.post(`${urls}/users/signup`, {
         name,
         email,
         password,
@@ -142,7 +143,7 @@ const SignUp = ({ showSignup, setShowSignup }) => {
                 >
                   <option value="PATIENT">Patient</option>
                   <option value="DOCTOR">Doctor</option>
-                  <option value="ADMIN">Admin</option>
+                  {/* <option value="ADMIN">Admin</option> */}
                 </select>
               </div>
               <motion.button

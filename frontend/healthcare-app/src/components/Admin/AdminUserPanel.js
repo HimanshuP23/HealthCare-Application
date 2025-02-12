@@ -27,14 +27,15 @@ const AdminPanel = () => {
   const headers = {
     Authorization: `Bearer ${token}`,
   };
+  const urls = process.env.REACT_APP_API_URL;
 
   // Fetch users by role or all
   const fetchUsers = async (role = "ALL") => {
     try {
       const endpoint =
         role === "ALL"
-          ? "http://localhost:8080/admin/getallusers"
-          : `http://localhost:8080/admin/getusersbyrole?role=${role}`;
+          ? `${urls}/admin/getallusers`
+          : `${urls}/admin/getusersbyrole?role=${role}`;
       const response = await axios.get(endpoint, { headers });
       setUsers(response.data);
     } catch (error) {
@@ -94,13 +95,13 @@ const AdminPanel = () => {
     try {
       if (selectedUser) {
         await axios.put(
-          `http://localhost:8080/admin/user/${selectedUser.userId}`,
+          `${urls}/admin/user/${selectedUser.userId}`,
           formValues,
           { headers }
         );
         setShowSuccess(true);
       } else {
-        await axios.post("http://localhost:8080/admin/adduser", formValues, {
+        await axios.post(`${urls}/admin/adduser`, formValues, {
           headers,
         });
         setShowSuccess(true);
@@ -121,7 +122,7 @@ const AdminPanel = () => {
   // Delete user
   const deleteUser = async () => {
     try {
-      await axios.delete(`http://localhost:8080/admin/user/${selectedUser}`, {
+      await axios.delete(`${urls}/admin/user/${selectedUser}`, {
         headers,
       });
       fetchUsers(selectedRole);

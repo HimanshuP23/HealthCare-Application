@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 const ForgotPassword = ({ showForgotPassword, setShowForgotPassword }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const urls = process.env.REACT_APP_API_URL;
 
   const handleForgotPassword = async () => {
     try {
-      const response = await axios.post(`http://localhost:8080/users/password/forgot-password?email=${email}`);
+      const response = await axios.post(`${urls}/users/password/forgot-password?email=${email}`);
       setMessage(response.data.message || "Reset link sent successfully!");
     } catch (error) {
       setMessage("Error sending reset email!");

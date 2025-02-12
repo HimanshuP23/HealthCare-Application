@@ -1,7 +1,7 @@
 import axios from 'axios';
-
-const API_URL = 'http://localhost:8080/api/appointments';
-const NOTIFICATION_URL = 'http://localhost:8080/notifications';
+const urls = process.env.REACT_APP_API_URL;
+const API_URL = `${urls}/api/appointments`;
+const NOTIFICATION_URL = `${urls}/notifications`;
 
 
 const getAuthHeaders = () => {

@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const Navbar = () => {
     const navigate = useNavigate();
-
   const handleLogout = () => {
     localStorage.removeItem("token"); // Remove JWT token from localStorage
     navigate("/"); // Redirect to sign-in page

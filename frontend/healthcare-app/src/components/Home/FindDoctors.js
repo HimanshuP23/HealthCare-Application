@@ -18,6 +18,7 @@ const FindDoctors = () => {
   // State for search query and selected filter.
   const [searchQuery, setSearchQuery] = useState("");
   const [filterType, setFilterType] = useState("");
+  const urls = process.env.REACT_APP_API_URL;
 
   const navigate = useNavigate();
 
@@ -28,7 +29,7 @@ const FindDoctors = () => {
         // Get the JWT token from localStorage.
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:8080/doctors/getalldoctors",
+          `${urls}/doctors/getalldoctors`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
