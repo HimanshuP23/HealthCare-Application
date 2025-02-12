@@ -28,7 +28,8 @@ const Header = () => {
     localStorage.removeItem('role');
     localStorage.removeItem('doctordetails');
     localStorage.removeItem('user');
-    localStorage.removeItem('userdata');
+    localStorage.removeItem('userobj');
+    localStorage.removeItem('doctorid');
     setIsAuthenticated(false);
     setRole(null);
     navigate('/'); 

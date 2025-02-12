@@ -177,7 +177,7 @@ const AdminDoctorPanel = () => {
   };
 
   return (
-    <div className="d-flex">
+    <div className="d-flex" style={{background: 'linear-gradient(135deg, #e0f7fa, #f1f8e9)'}}>
       {/* Sidebar and Navbar */}
       <Sidebar />
       <div className="content-container" style={{ flex: 1 }}>

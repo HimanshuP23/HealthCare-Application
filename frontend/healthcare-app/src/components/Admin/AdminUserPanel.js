@@ -132,14 +132,16 @@ const AdminPanel = () => {
   };
 
   return (
-    <div className="d-flex">
+    <div className="d-flex" style={{background: 'linear-gradient(135deg, #e0f7fa, #f1f8e9)'}}>
       {/* Sidebar and Navbar */}
       <Sidebar />
       <div className="content-container" style={{ flex: 1 }}>
         <Navbar />
         <div className="container mt-5">
           <div className="d-flex justify-content-between align-items-center mb-4">
-            <h2 className="heading" style={{color: "rgb(26, 101, 63)"}}>Admin Panel - Manage Users</h2>
+            <h2 className="heading" style={{ color: "rgb(26, 101, 63)" }}>
+              Admin Panel - Manage Users
+            </h2>
             <Button variant="primary" onClick={() => openModal()}>
               Add User
             </Button>
@@ -186,13 +188,15 @@ const AdminPanel = () => {
                     >
                       Edit
                     </Button>
-                    <Button
-                      variant="danger"
-                      size="sm"
-                      onClick={() => confirmDelete(user.userId)}
-                    >
-                      Delete
-                    </Button>
+                    {user.role !== "ADMIN" && (
+                      <Button
+                        variant="danger"
+                        size="sm"
+                        onClick={() => confirmDelete(user.userId)}
+                      >
+                        Delete
+                      </Button>
+                    )}
                   </td>
                 </tr>
               ))}
@@ -205,7 +209,9 @@ const AdminPanel = () => {
               <Modal.Title>Success</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              {selectedUser ? "User Updated Successfully!" : "User Added Successfully!"}
+              {selectedUser
+                ? "User Updated Successfully!"
+                : "User Added Successfully!"}
             </Modal.Body>
             <Modal.Footer>
               <Button variant="primary" onClick={() => setShowSuccess(false)}>
@@ -215,13 +221,19 @@ const AdminPanel = () => {
           </Modal>
 
           {/* Delete Confirmation Modal */}
-          <Modal show={showDeleteConfirm} onHide={() => setShowDeleteConfirm(false)}>
+          <Modal
+            show={showDeleteConfirm}
+            onHide={() => setShowDeleteConfirm(false)}
+          >
             <Modal.Header closeButton style={{ backgroundColor: "#D84040" }}>
               <Modal.Title>Confirm Deletion</Modal.Title>
             </Modal.Header>
             <Modal.Body>Are you sure you want to delete this user?</Modal.Body>
             <Modal.Footer>
-              <Button variant="secondary" onClick={() => setShowDeleteConfirm(false)}>
+              <Button
+                variant="secondary"
+                onClick={() => setShowDeleteConfirm(false)}
+              >
                 Cancel
               </Button>
               <Button variant="danger" onClick={deleteUser}>
@@ -233,7 +245,9 @@ const AdminPanel = () => {
           {/* Modal for Add/Edit User */}
           <Modal show={isModalOpen} onHide={closeModal}>
             <Modal.Header closeButton>
-              <Modal.Title>{selectedUser ? "Edit User" : "Add User"}</Modal.Title>
+              <Modal.Title>
+                {selectedUser ? "Edit User" : "Add User"}
+              </Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <Form>

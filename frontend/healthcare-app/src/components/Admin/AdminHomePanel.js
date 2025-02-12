@@ -123,7 +123,7 @@ export default function AdminHomePanel() {
   }, []);
 
   return (
-    <div className="d-flex vh-100">
+    <div className="d-flex vh-100" style={{background: 'linear-gradient(135deg, #e0f7fa, #f1f8e9)'}}>
       {/* Sidebar */}
       <Sidebar className="bg-dark text-white p-3" style={{ width: '250px' }} />
 

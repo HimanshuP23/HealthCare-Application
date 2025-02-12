@@ -13,6 +13,7 @@ const Sidebar = () => {
         boxShadow: "2px 0 5px rgba(0, 0, 0, 0.1)",
         backgroundColor: "#f8f9fa", // Light background
         color: "#343a40", // Dark text for contrast
+        // background: linear-gradient(135deg, #e0f7fa, #f1f8e9)
       }}
     >
       <Link
@@ -20,7 +21,7 @@ const Sidebar = () => {
         className="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-decoration-none"
         style={{ color: "#007bff" }} // Blue brand color
       >
-        <span className="fs-4 fw-bold" style={{fontFamily: "cursive", color:"rgb(4, 152, 179)" }}>
+        <span className="fs-4 fw-bold" style={{fontFamily: "cursive", color:"rgb(4, 152, 179)"}}>
           Admin Dashboard
         </span>
       </Link>
