@@ -1,0 +1,28 @@
+services:
+  backend:
+    container_name: backend
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      DB_URL: jdbc:mysql://mysql-container/healthCare?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      DB_USERNAME: root
+      DB_PASSWORD: mysql
+    depends_on:
+      - mysql-container
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend/healthcare-app
+      dockerfile: Dockerfile
+    ports:
+      - 80:3000
+    depends_on:
+      - backend
+  mysql-container:
+    image: mysql:8.0.28
+    environment:
+      MYSQL_DATABASE: healthCare
+      MYSQL_ROOT_PASSWORD: mysql

@@ -60,7 +60,7 @@ public class UserController {
 	private PasswordEncoder passwordEncoder;
 	
 	// sign up
-	@CrossOrigin(origins = "http://localhost:3000")
+	
 	@PostMapping("/signup")
 	public ResponseEntity<?> userSignup(@Valid @RequestBody  User u) {
 		System.out.println("in sign up " + u);
@@ -69,7 +69,7 @@ public class UserController {
 				.body(userService.userRegistration(u));
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	
 	@PostMapping("/signin")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody User usr) {
 	    System.out.println("in sign in" + usr);
@@ -103,13 +103,13 @@ public class UserController {
 	    
 	}
 	
-	@CrossOrigin(origins = "http://localhost:3000")
+	
 	@GetMapping("/patients/count")
     public long getTotalPatientCount() {
         return userService.getPatientCounts();
     }	
 	
-	@CrossOrigin(origins = "http://localhost:3000")
+	
 	@PostMapping("/password/forgot-password")
     public ResponseEntity<?> forgotPassword(@RequestParam String email) {
         Optional<User> userOpt = userRepository.findByEmail(email);

@@ -68,14 +68,14 @@ public class PaymentController {
         return ResponseEntity.ok("Payment deleted successfully");
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @GetMapping("/completed/count")
     public long getTotalPaymentCompletedCount() {
         return paymentService.getPaymentsCompletedCounts();
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @GetMapping("/pending/count")
     public long getTotalPaymentPendingCount() {

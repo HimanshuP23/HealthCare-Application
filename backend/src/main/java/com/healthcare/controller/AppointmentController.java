@@ -27,7 +27,7 @@ public class AppointmentController {
     @Autowired
     private AppointmentRepository appointmentRepository;
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('PATIENT')")
     @PostMapping("/addAppointment")
     public ResponseEntity<?> bookAppointment(@RequestBody AppointmentDto appointmentDto) {
@@ -58,21 +58,21 @@ public class AppointmentController {
         }
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
     @GetMapping("/get")
     public ResponseEntity<List<Appointment>> getAllAppointments() {
         return ResponseEntity.ok(appointmentService.getAllAppointments());
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('PATIENT') or hasRole('ADMIN')")
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Appointment>> getAppointmentsByUser(@PathVariable Long userId) {
         return ResponseEntity.ok(appointmentService.getAppointmentsByUser(userId));
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('DOCTOR') or hasRole('ADMIN')")
     @GetMapping("/doctor/{doctorId}")
     public ResponseEntity<List<Appointment>> getAppointmentsByDoctor(@PathVariable Long doctorId) {
@@ -82,14 +82,14 @@ public class AppointmentController {
     }
 
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('PATIENT') or hasRole('DOCTOR')")
     @GetMapping("/user/history/{userId}")
     public ResponseEntity<List<Appointment>> getUserAppointmentHistory(@PathVariable Long userId) {
         return ResponseEntity.ok(appointmentService.getUserAppointmentHistory(userId));
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('DOCTOR')")
     @GetMapping("/doctor/dashboard/{doctorId}")
     public ResponseEntity<?> getDoctorAppointments(@PathVariable Long doctorId) {
@@ -101,7 +101,7 @@ public class AppointmentController {
     }
 
 
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @PutMapping("/{id}")
     public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointment) {
@@ -111,7 +111,7 @@ public class AppointmentController {
     }
 
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<String> cancelAppointment(@PathVariable Long id) {
@@ -122,28 +122,28 @@ public class AppointmentController {
         return ResponseEntity.badRequest().body("Cannot cancel a completed appointment");
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @GetMapping("/scheduled/count")
     public long getTotalAppointmentScheduledCount() {
         return appointmentService.getAppointmentScheduledCounts();
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @GetMapping("/pending/count")
     public long getTotalAppointmentPendingCount() {
         return appointmentService.getAppointmentPendingCounts();
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @GetMapping("/completed/count")
     public long getTotalAppointmentCompletedCount() {
         return appointmentService.getAppointmentCompletedCounts();
     }
     
-    @CrossOrigin(origins = "http://localhost:3000")
+    
     @PreAuthorize("hasRole('ADMIN') or hasRole('DOCTOR')")
     @GetMapping("/cancelled/count")
     public long getTotalAppointmentCancelledCount() {
